@@ -60,6 +60,10 @@
 		"vector": "cpp",
 		"*.tcc": "cpp",
 		"hashtable": "cpp",
-		"fstream": "cpp"
+		"fstream": "cpp",
+		"deque": "cpp",
+		"memory_resource": "cpp",
+		"optional": "cpp",
+		"list": "cpp"
 	}
 }

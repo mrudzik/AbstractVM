@@ -14,7 +14,8 @@ SRC = 	main.cpp	\
 OBJ =       $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 
 INCLUDES	=	-I $(INC_DIR)	\
-				-I $(INC_DIR)parser/
+				-I $(INC_DIR)parser/	\
+				-I $(INC_DIR)exceptions/
 
 #FRAMEWORKS	=	
 	# For Graphic projects #-w -lSDL2 -w -lSDL2_image -w -lSDL2_ttf

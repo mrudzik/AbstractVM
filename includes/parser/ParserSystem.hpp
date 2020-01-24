@@ -16,6 +16,9 @@ private:
     LexerModule*	lexerMod;
     ParserModule*	parserMod;
 
+
+	std::vector<Command*> resultCommands;
+
 	std::vector<std::string> 	ReadFileLines(std::string path);
 
 public:
@@ -26,6 +29,7 @@ public:
     void ParseInputFile(std::string path);
     // Used when typing program in manual mode
     void ParseInputLine(std::string line);
+	void ClearResults();
 
 };
 
