@@ -3,10 +3,10 @@
 
 #include <exception>
 
-class MathEmptyStackException : public std::logic_error
+class FalseAssertException : public std::logic_error
 {
 public:
-	MathEmptyStackException()
+	FalseAssertException()
 		: logic_error("An \"assert\" instruction is not true")
 	{ }
 };

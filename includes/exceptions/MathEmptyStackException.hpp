@@ -9,7 +9,7 @@ public:
 	MathEmptyStackException()
 		: logic_error("The stack is composed of "
 			"strictly less that two values when "
-			"an arithmetic instructionis executed.")
+			"an arithmetic instruction is executed.")
 	{ }
 };
 
