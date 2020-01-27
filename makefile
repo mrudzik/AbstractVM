@@ -5,6 +5,7 @@ OBJ_DIR :=	./objects/
 INC_DIR :=	./includes/
 
 SRC = 	main.cpp	\
+		CommandFactory.cpp		\
 		parser/ParserSystem.cpp	\
 		parser/LexerModule.cpp	\
 		parser/ParserModule.cpp	\

@@ -7,7 +7,6 @@
 
 enum e_OperandType
 {
-	None,
 	Int8,
 	Int16,
 	Int32,

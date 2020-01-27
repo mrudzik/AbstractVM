@@ -14,6 +14,7 @@
 #include "OverflowException.hpp"
 #include "UnderflowException.hpp"
 #include "UnknownInstructionException.hpp"
+#include "UnknownOperandException.hpp"
 
 
 #endif
