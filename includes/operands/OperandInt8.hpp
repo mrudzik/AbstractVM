@@ -6,14 +6,18 @@
 
 class OperandInt8 : public IOperand
 {
-private:
+	public:
+// private:
 	int8_t _value;
 
-public:
+// public:
 	OperandInt8(int8_t value);
 	~OperandInt8();
 
-	virtual e_OperandType OperandDouble::getType();
+	virtual e_OperandType getType() const
+	{
+		return e_OperandType::Int8;
+	}
 };
 
 

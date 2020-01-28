@@ -5,13 +5,17 @@
 
 class OperandFloat : public IOperand
 {
-private:
+	public:
+// private:
 	float _value;
-public:
+// public:
 	OperandFloat(float value);
 	~OperandFloat();
 
-	virtual e_OperandType OperandDouble::getType();
+	virtual e_OperandType getType() const
+	{
+		return e_OperandType::Float;
+	}
 };
 
 

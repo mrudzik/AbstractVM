@@ -5,13 +5,17 @@
 
 class OperandDouble : public IOperand
 {
-private:
+	public:
+// private:
 	double _value;
-public:
+// public:
 	OperandDouble(double value);
 	~OperandDouble();
 
-	virtual e_OperandType OperandDouble::getType();
+	virtual e_OperandType getType() const
+	{
+		return e_OperandType::Double;
+	}
 };
 
 #endif

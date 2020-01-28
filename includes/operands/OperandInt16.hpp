@@ -5,14 +5,18 @@
 
 class OperandInt16 : public IOperand
 {
-private:
+	public:
+// private:
 	int16_t _value;
 
-public:
+// public:
 	OperandInt16(int16_t value);
 	~OperandInt16();
 
-	virtual e_OperandType OperandDouble::getType();
+	virtual e_OperandType getType() const
+	{
+		return e_OperandType::Int16;
+	}
 };
 
 

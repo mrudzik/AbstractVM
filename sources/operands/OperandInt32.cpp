@@ -9,7 +9,7 @@ OperandInt32::~OperandInt32()
 {
 }
 
-virtual e_OperandType OperandInt32::getType()
-{
-	return e_OperandType::Int32;
-}
+// virtual e_OperandType OperandInt32::getType()
+// {
+// 	return e_OperandType::Int32;
+// }

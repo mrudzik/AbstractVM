@@ -10,7 +10,7 @@ OperandDouble::~OperandDouble()
 {
 }
 
-virtual e_OperandType OperandDouble::getType()
-{
-	return e_OperandType::Double;
-}
+// virtual e_OperandType OperandDouble::getType() override
+// {
+// 	return e_OperandType::Double;
+// }

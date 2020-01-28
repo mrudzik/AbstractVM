@@ -9,7 +9,7 @@ OperandFloat::~OperandFloat()
 {
 }
 
-virtual e_OperandType OperandFloat::getType()
-{
-	return e_OperandType::Float;
-}
+// virtual e_OperandType OperandFloat::getType()
+// {
+// 	return e_OperandType::Float;
+// }

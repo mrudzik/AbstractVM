@@ -5,13 +5,17 @@
 
 class OperandInt32 : public IOperand
 {
-private:
+	public: // temp
+// private:
 	int32_t _value;
-public:
+// public:
 	OperandInt32(int32_t value);
 	~OperandInt32();
 
-	virtual e_OperandType OperandDouble::getType() const;
+	virtual e_OperandType getType() const
+	{
+		return e_OperandType::Int32;
+	}
 };
 
 #endif

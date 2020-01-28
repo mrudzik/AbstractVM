@@ -9,7 +9,7 @@ OperandInt8::~OperandInt8()
 {
 }
 
-virtual e_OperandType OperandInt8::getType()
-{
-	return e_OperandType::Int8;
-}
+// virtual e_OperandType OperandInt8::getType()
+// {
+// 	return e_OperandType::Int8;
+// }
