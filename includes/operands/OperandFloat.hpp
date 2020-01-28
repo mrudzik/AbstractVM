@@ -6,19 +6,13 @@
 class OperandFloat : public IOperand
 {
 private:
-	/* data */
+	float _value;
 public:
-	OperandFloat(/* args */);
+	OperandFloat(float value);
 	~OperandFloat();
+
+	virtual e_OperandType OperandDouble::getType();
 };
-
-OperandFloat::OperandFloat(/* args */)
-{
-}
-
-OperandFloat::~OperandFloat()
-{
-}
 
 
 #endif

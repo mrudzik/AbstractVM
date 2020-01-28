@@ -6,19 +6,14 @@
 class OperandInt16 : public IOperand
 {
 private:
-	/* data */
+	int16_t _value;
+
 public:
-	OperandInt16(/* args */);
+	OperandInt16(int16_t value);
 	~OperandInt16();
+
+	virtual e_OperandType OperandDouble::getType();
 };
-
-OperandInt16::OperandInt16(/* args */)
-{
-}
-
-OperandInt16::~OperandInt16()
-{
-}
 
 
 #endif

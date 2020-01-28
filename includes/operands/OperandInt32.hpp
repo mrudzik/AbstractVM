@@ -6,19 +6,12 @@
 class OperandInt32 : public IOperand
 {
 private:
-	/* data */
+	int32_t _value;
 public:
-	OperandInt32(/* args */);
+	OperandInt32(int32_t value);
 	~OperandInt32();
+
+	virtual e_OperandType OperandDouble::getType() const;
 };
-
-OperandInt32::OperandInt32(/* args */)
-{
-}
-
-OperandInt32::~OperandInt32()
-{
-}
-
 
 #endif

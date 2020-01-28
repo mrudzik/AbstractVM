@@ -14,5 +14,5 @@ Command* CommandFactory::CreateCommand(e_InstructionType instr, IOperand* value)
 {
 	Command* result = new Command(value, instr);
 
-	return;
+	return result;
 }

@@ -4,6 +4,7 @@
 #define COMMAND_HPP
 
 #include "IOperand.hpp"
+#include <iostream>
 
 enum e_InstructionType
 {
@@ -26,7 +27,7 @@ private:
 public:
 	Command(IOperand* newValue, e_InstructionType instruction);
 	~Command();
-
+	void ShowCommand();
 };
 
 #endif

@@ -20,7 +20,7 @@ ParserSystem::~ParserSystem()
 
 void ParserSystem::ClearResults()
 {
-	size_t i = resultCommands.size();
+	int i = static_cast<int>(resultCommands.size());
 	while (i > -1)
 	{// Releasing memory behind pointers
 		delete resultCommands.at(i);
@@ -106,6 +106,12 @@ void 	ParserSystem::ParseInputFile(std::string path)
 
 	// Return Result
 	 
+	i = 0;
+	while (i < resultCommands.size())
+	{
+		resultCommands.at(i)->ShowCommand();
+		i++;
+	}
 
 
 }

@@ -2,6 +2,7 @@
 #include "ParserModule.hpp"
 #include "CustomExceptions.hpp"
 #include "CommandFactory.hpp"
+#include "OperandFactory.hpp"
 
 ParserModule::ParserModule(/* args */)
 {
@@ -44,9 +45,11 @@ Command* ParseDoubleParameter(s_LexerLine toParse)
 	std::string param2 = toParse.tokens.at(1);
 
 	if (param1.compare("push") == 0)
-		return CommandFactory::CreateCommand(e_InstructionType::Push, NULL);
+		return CommandFactory::CreateCommand(e_InstructionType::Push,
+			OperandFactory::CreateOperandFromToken(param2));
 	if (param1.compare("assert") == 0)
-		return CommandFactory::CreateCommand(e_InstructionType::Assert, NULL);
+		return CommandFactory::CreateCommand(e_InstructionType::Assert,
+			OperandFactory::CreateOperandFromToken(param2));
 
 	throw UnknownInstructionException();
 }
@@ -57,10 +60,119 @@ Command* ParserModule::ParseLine(s_LexerLine toParse)
 		throw LexicalException();
 	
 	size_t tokenCount = toParse.tokens.size();
-	if (tokenCount == 1)
+	if (tokenCount >= 1)
 		return ParseSingleParameter(toParse);
-	if (tokenCount == 2) // Find Instructions with values
+	if (tokenCount >= 2) // Find Instructions with values
 		return ParseDoubleParameter(toParse);
 
 	throw UnknownInstructionException();
+}
+
+
+
+int8_t   ParserModule::ParseInt8_t(std::string param)
+{
+	size_t i = 0;
+	while (i < param.size())
+	{
+		if (isdigit(param.at(i)))
+		{
+			long long tempVal = atoll(param.c_str() + i);
+			if (tempVal < -128)
+				throw UnderflowException();
+			if (tempVal > 127)
+				throw OverflowException();
+		
+			return static_cast<int8_t>(tempVal);
+		}
+		i++;
+	}
+	throw OperandNotSpecifiedException();
+}
+
+int16_t  ParserModule::ParseInt16_t(std::string param)
+{
+	size_t i = 0;
+	while (i < param.size())
+	{
+		if (isdigit(param.at(i)))
+		{
+			long long tempVal = atoll(param.c_str() + i);
+			if (tempVal < -32768)
+				throw UnderflowException();
+			if (tempVal > 32767)
+				throw OverflowException();
+		
+			return static_cast<int16_t>(tempVal);
+		}
+		i++;
+	}
+	throw OperandNotSpecifiedException();
+}
+
+int32_t  ParserModule::ParseInt32_t(std::string param)
+{
+	size_t i = 0;
+	while (i < param.size())
+	{
+		if (isdigit(param.at(i)))
+		{
+			long long tempVal = atoll(param.c_str() + i);
+			if (tempVal < -2147483648)
+				throw UnderflowException();
+			if (tempVal > 2147483647)
+				throw OverflowException();
+		
+			return static_cast<int32_t>(tempVal);
+		}
+		i++;
+	}
+	throw OperandNotSpecifiedException();
+}
+
+
+
+
+
+
+
+
+
+
+float    ParserModule::ParseFloat(std::string param)
+{
+	size_t i = 0;
+	while (i < param.size())
+	{
+		if (isdigit(param.at(i)))
+		{
+			float tempVal = static_cast<float>((atof(param.c_str() + i)));
+			if (isnan(tempVal))
+				throw LexicalException();
+			if (isinf(tempVal))
+				throw OverflowException();
+			return tempVal;
+		}
+		i++;
+	}
+	throw OperandNotSpecifiedException();
+}
+
+double   ParserModule::ParseDouble(std::string param)
+{
+	size_t i = 0;
+	while (i < param.size())
+	{
+		if (isdigit(param.at(i)))
+		{
+			double tempVal = atof(param.c_str() + i);
+			if (isnan(tempVal))
+				throw LexicalException();
+			if (isinf(tempVal))
+				throw OverflowException();
+			return tempVal;
+		}
+		i++;
+	}
+	throw OperandNotSpecifiedException();
 }

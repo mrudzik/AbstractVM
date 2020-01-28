@@ -6,19 +6,12 @@
 class OperandDouble : public IOperand
 {
 private:
-	/* data */
+	double _value;
 public:
-	OperandDouble(/* args */);
+	OperandDouble(double value);
 	~OperandDouble();
+
+	virtual e_OperandType OperandDouble::getType();
 };
-
-OperandDouble::OperandDouble(/* args */)
-{
-}
-
-OperandDouble::~OperandDouble()
-{
-}
-
 
 #endif

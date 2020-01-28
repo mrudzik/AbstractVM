@@ -3,7 +3,11 @@
 #define OPERAND_FACTORY_HPP
 
 #include "IOperand.hpp"
-
+#include "OperandDouble.hpp"
+#include "OperandFloat.hpp"
+#include "OperandInt8.hpp"
+#include "OperandInt16.hpp"
+#include "OperandInt32.hpp"
 
 class OperandFactory
 {
@@ -13,12 +17,13 @@ public:
 	OperandFactory(/* args */);
 	~OperandFactory();
 
-	IOperand* CreateOperandFromToken(std::string token);
-	IOperand* CreateInt8(int8_t value);
-	IOperand* CreateInt16(int16_t value);
-	IOperand* CreateInt32(int32_t value);
-	IOperand* CreateFloat(float value);
-	IOperand* CreateDouble(double value);
+	static IOperand* CreateOperandFromToken(std::string token);
+	
+	static IOperand* CreateInt8(int8_t value);
+	static IOperand* CreateInt16(int16_t value);
+	static IOperand* CreateInt32(int32_t value);
+	static IOperand* CreateFloat(float value);
+	static IOperand* CreateDouble(double value);
 	
 };
 

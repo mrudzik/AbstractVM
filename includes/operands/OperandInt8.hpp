@@ -7,19 +7,16 @@
 class OperandInt8 : public IOperand
 {
 private:
-	/* data */
+	int8_t _value;
+
 public:
-	OperandInt8(/* args */);
+	OperandInt8(int8_t value);
 	~OperandInt8();
+
+	virtual e_OperandType OperandDouble::getType();
 };
 
-OperandInt8::OperandInt8(/* args */)
-{
-}
 
-OperandInt8::~OperandInt8()
-{
-}
 
 
 #endif
