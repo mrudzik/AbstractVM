@@ -13,8 +13,11 @@ ParserModule::~ParserModule()
 }
 
 
-Command* ParseSingleParameter(s_LexerLine toParse)
+Command* ParseTokens(s_LexerLine toParse)
 {
+	size_t tokenCount = toParse.tokens.size();
+
+
 	std::string param1 = toParse.tokens.at(0);
 
 	if (param1.compare("pop") == 0)
@@ -36,12 +39,9 @@ Command* ParseSingleParameter(s_LexerLine toParse)
 	if (param1.compare("exit") == 0)
 		return CommandFactory::CreateCommand(e_InstructionType::Exit, NULL);
 
-	throw UnknownInstructionException();
-}
+	if (tokenCount < 2)
+		throw UnknownInstructionException();
 
-Command* ParseDoubleParameter(s_LexerLine toParse)
-{
-	std::string param1 = toParse.tokens.at(0);
 	std::string param2 = toParse.tokens.at(1);
 
 	if (param1.compare("push") == 0)
@@ -61,9 +61,7 @@ Command* ParserModule::ParseLine(s_LexerLine toParse)
 	
 	size_t tokenCount = toParse.tokens.size();
 	if (tokenCount >= 1)
-		return ParseSingleParameter(toParse);
-	if (tokenCount >= 2) // Find Instructions with values
-		return ParseDoubleParameter(toParse);
+		return ParseTokens(toParse);
 
 	throw UnknownInstructionException();
 }

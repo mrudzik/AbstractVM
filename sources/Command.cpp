@@ -5,7 +5,12 @@ Command::Command(IOperand* newValue, e_InstructionType instr)
 {}
 
 Command::~Command()
-{}
+{
+	if (_value != NULL)
+	{
+		delete _value;
+	}
+}
 
 
 void Command::ShowCommand()

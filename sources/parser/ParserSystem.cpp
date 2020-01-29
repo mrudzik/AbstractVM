@@ -4,6 +4,9 @@
 #include "CustomExceptions.hpp"
 #include <fstream>
 
+#include "CommandFactory.hpp"
+#include "OperandFactory.hpp"
+
 ParserSystem::ParserSystem(/* args */)
 {
 	lexerMod = new LexerModule();
@@ -20,7 +23,7 @@ ParserSystem::~ParserSystem()
 
 void ParserSystem::ClearResults()
 {
-	int i = static_cast<int>(resultCommands.size());
+	int i = static_cast<int>(resultCommands.size()) - 1;
 	while (i > -1)
 	{// Releasing memory behind pointers
 		delete resultCommands.at(i);
@@ -84,7 +87,8 @@ void 	ParserSystem::ParseInputFile(std::string path)
 		}
 		catch (const std::exception& err)
 		{
-			std::cout << "Found Error at line " << i << ":\n"
+			std::cout << "Found Error at line " << i + 1 << ":\n"
+				<< "\t" << lexerMod->GetLexedLine(i).line << "\n"
 				<< err.what() << std::endl;
 			foundError = true;
 		}
@@ -113,6 +117,6 @@ void 	ParserSystem::ParseInputFile(std::string path)
 		i++;
 	}
 
-
+	std::cout << "\nEnd of Parser System" << std::endl;
 }
 

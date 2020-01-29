@@ -30,4 +30,5 @@ int main(int argc, char** argv)
     else
         LaunchProgramManual();
 
+    system("leaks avm");
 }
