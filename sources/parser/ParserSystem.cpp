@@ -87,9 +87,9 @@ void 	ParserSystem::ParseInputFile(std::string path)
 		}
 		catch (const std::exception& err)
 		{
-			std::cout << "Found Error at line " << i + 1 << ":\n"
-				<< "\t" << lexerMod->GetLexedLine(i).line << "\n"
-				<< err.what() << std::endl;
+			std::cout << "Error at line " << i + 1 << ":\n"
+				<< "\t\033[21;36m" << lexerMod->GetLexedLine(i).line << "\033[0m\n"
+				<< "\t" << err.what() << std::endl;
 			foundError = true;
 		}
 		
@@ -105,7 +105,7 @@ void 	ParserSystem::ParseInputFile(std::string path)
 
 	if (foundErrors != 0)
 	{// Throw Custom exception that found alot of Errors
-		std::cout << "Found Errors" << std::endl;
+		std::cout << "Found Errors. The programm cannot continue it's work" << std::endl;
 	}
 
 	// Return Result

@@ -18,10 +18,8 @@ void Command::ShowCommand()
 {
 	std::cout << "\n" << EnumStringTranslator::EnumInstruction(_instrType) << " ";
 	if (_value == NULL)
-	{
-		std::cout << "NULL";
 		return;
-	}
+	
 	std::cout << EnumStringTranslator::EnumOperand(_value->getType());
 	std::cout << " " << _value->toString();
 }
