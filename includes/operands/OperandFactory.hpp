@@ -3,11 +3,14 @@
 #define OPERAND_FACTORY_HPP
 
 #include "IOperand.hpp"
-#include "OperandDouble.hpp"
-#include "OperandFloat.hpp"
-#include "OperandInt8.hpp"
-#include "OperandInt16.hpp"
-#include "OperandInt32.hpp"
+#include "OperandTemplate.hpp"
+// #include "OperandDouble.hpp"
+// #include "OperandFloat.hpp"
+// #include "OperandInt8.hpp"
+// #include "OperandInt16.hpp"
+// #include "OperandInt32.hpp"
+
+// #include "Operand.hpp"
 
 class OperandFactory
 {

@@ -73,8 +73,12 @@ int8_t   ParserModule::ParseInt8_t(std::string param)
 	size_t i = 0;
 	while (i < param.size())
 	{
-		if (isdigit(param.at(i)))
+		if (param.at(i) == '(')
 		{
+			if (i + 1 >= param.size())
+				throw LexicalException();
+			i++;
+
 			long long tempVal = atoll(param.c_str() + i);
 			if (tempVal < -128)
 				throw UnderflowException();
@@ -93,8 +97,12 @@ int16_t  ParserModule::ParseInt16_t(std::string param)
 	size_t i = 0;
 	while (i < param.size())
 	{
-		if (isdigit(param.at(i)))
+		if (param.at(i) == '(')
 		{
+			if (i + 1 >= param.size())
+				throw LexicalException();
+			i++;
+
 			long long tempVal = atoll(param.c_str() + i);
 			if (tempVal < -32768)
 				throw UnderflowException();
@@ -113,8 +121,12 @@ int32_t  ParserModule::ParseInt32_t(std::string param)
 	size_t i = 0;
 	while (i < param.size())
 	{
-		if (isdigit(param.at(i)))
+		if (param.at(i) == '(')
 		{
+			if (i + 1 >= param.size())
+				throw LexicalException();
+			i++;
+
 			long long tempVal = atoll(param.c_str() + i);
 			if (tempVal < -2147483648)
 				throw UnderflowException();
@@ -136,8 +148,13 @@ float    ParserModule::ParseFloat(std::string param)
 	size_t i = 0;
 	while (i < param.size())
 	{
-		if (isdigit(param.at(i)))
+		if (param.at(i) == '(')
 		{
+			if (i + 1 >= param.size())
+				throw LexicalException();
+			i++;
+
+
 			float tempVal = static_cast<float>((atof(param.c_str() + i)));
 			if (isnan(tempVal))
 				throw LexicalException();
@@ -155,8 +172,12 @@ double   ParserModule::ParseDouble(std::string param)
 	size_t i = 0;
 	while (i < param.size())
 	{
-		if (isdigit(param.at(i)))
+		if (param.at(i) == '(')
 		{
+			if (i + 1 >= param.size())
+				throw LexicalException();
+			i++;
+
 			double tempVal = atof(param.c_str() + i);
 			if (isnan(tempVal))
 				throw LexicalException();

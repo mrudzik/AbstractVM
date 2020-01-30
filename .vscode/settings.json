@@ -64,6 +64,7 @@
 		"deque": "cpp",
 		"memory_resource": "cpp",
 		"optional": "cpp",
-		"list": "cpp"
+		"list": "cpp",
+		"__memory": "cpp"
 	}
 }

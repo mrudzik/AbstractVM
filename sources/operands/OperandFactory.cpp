@@ -4,6 +4,7 @@
 #include "ParserModule.hpp"
 
 
+
 OperandFactory::OperandFactory(/* args */)
 {
 }
@@ -15,15 +16,15 @@ OperandFactory::~OperandFactory()
 
 IOperand* OperandFactory::CreateOperandFromToken(std::string token)
 {
-	if (token.compare("int8(") > 0)
+	if (token.compare(0, 5, "int8(") == 0)
 		return CreateInt8(ParserModule::ParseInt8_t(token));
-	if (token.compare("int16(") > 0)
+	if (token.compare(0, 6, "int16(") == 0)
 		return CreateInt16(ParserModule::ParseInt16_t(token));
-	if (token.compare("int32(") > 0)
+	if (token.compare(0, 6, "int32(") == 0)
 		return CreateInt32(ParserModule::ParseInt32_t(token));
-	if (token.compare("float(") > 0)
+	if (token.compare(0, 6, "float(") == 0)
 		return CreateFloat(ParserModule::ParseFloat(token));
-	if (token.compare("double(") > 0)
+	if (token.compare(0, 7, "double(") == 0)
 		return CreateDouble(ParserModule::ParseDouble(token));
 
 
@@ -33,25 +34,25 @@ IOperand* OperandFactory::CreateOperandFromToken(std::string token)
 
 IOperand* OperandFactory::CreateInt8(int8_t value)
 {
-	return new OperandInt8(value);
+	return new OperandTemplate<int8_t>(value, e_OperandType::Int8);
 }
 
 IOperand* OperandFactory::CreateInt16(int16_t value)
 {
-	return new OperandInt16(value);
+	return new OperandTemplate<int16_t>(value, e_OperandType::Int16);
 }
 
 IOperand* OperandFactory::CreateInt32(int32_t value)
 {
-	return new OperandInt32(value);
+	return new OperandTemplate<int32_t>(value, e_OperandType::Int32);
 }
 
 IOperand* OperandFactory::CreateFloat(float value)
 {
-	return new OperandFloat(value);
+	return new OperandTemplate<float>(value, e_OperandType::Float);
 }
 
 IOperand* OperandFactory::CreateDouble(double value)
 {
-	return new OperandDouble(value);
+	return new OperandTemplate<double>(value, e_OperandType::Double);
 }

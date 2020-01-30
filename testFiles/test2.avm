@@ -1,0 +1,23 @@
+push int8(42)
+push int16(-33)
+push int16(55)
+
+add
+
+push float(44.55)
+push float(-55.44)
+
+mul
+
+push double(42.42)
+push double(-42.42)
+
+push int32(42)
+push int8(-21)
+
+dump
+pop
+
+assert double(42.42)
+
+exit

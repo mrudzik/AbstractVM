@@ -10,12 +10,9 @@ SRC = 	main.cpp	\
 		parser/ParserModule.cpp	\
 		Command.cpp \
 		CommandFactory.cpp		\
-		OperandFactory.cpp 		\
-		operands/OperandDouble.cpp 	\
-		operands/OperandFloat.cpp 	\
-		operands/OperandInt8.cpp 	\
-		operands/OperandInt16.cpp 	\
-		operands/OperandInt32.cpp 	
+		operands/OperandFactory.cpp 	\
+		operands/OperandTemplate.cpp	\
+		utility/EnumStringTranslator.cpp	
 
 		
 
@@ -25,7 +22,8 @@ OBJ =       $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 INCLUDES	=	-I $(INC_DIR)	\
 				-I $(INC_DIR)parser/		\
 				-I $(INC_DIR)exceptions/	\
-				-I $(INC_DIR)operands/
+				-I $(INC_DIR)operands/		\
+				-I $(INC_DIR)utility/
 
 #FRAMEWORKS	=	
 	# For Graphic projects #-w -lSDL2 -w -lSDL2_image -w -lSDL2_ttf
