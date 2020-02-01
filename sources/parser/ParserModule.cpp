@@ -133,7 +133,60 @@ void 	ParserModule::LexicCheckInt(std::string param)
 
 
 
+void 	ParserModule::LexicCheckFloat(std::string param)
+{
+	
+	if (param.compare(0, 5, "float") != 0 &&
+		param.compare(0, 6, "double") != 0 )
+		throw LexicalException();
 
+	int phase = 0;
+	bool minus = false;
+	bool point = false;
+	for (size_t i = 3; i < param.size(); i++)
+	{
+		char ch = param.at(i);
+		if (phase == 0)
+		{// skipping to (
+			if (ch == '(')
+			{// float|(|123124)
+				phase++;
+				continue;
+			}
+			continue;
+		}
+		if (phase == 1)
+		{// float(|1|23124)
+			if (isdigit(ch))
+				continue;
+			else if (ch == '-')
+			{
+				if (param.at(i - 1) != '(')
+					throw LexicalException();
+				if (minus)
+					throw LexicalException();
+				minus = true;
+				continue;
+			}
+			else if (ch == ')')
+			{// float(123124|)|
+				return;
+			}
+			else if (ch == '.')
+			{
+				if (!isdigit(param.at(i - 1)))
+					throw LexicalException();
+				if (point)
+					throw LexicalException();
+				point = true;
+				continue;
+			}
+			std::cout << "Phase 1 error" << std::endl;
+			throw LexicalException();
+		}
+	}
+	throw LexicalException();
+}
 
 
 
@@ -225,6 +278,7 @@ int32_t  ParserModule::ParseInt32_t(std::string param)
 
 float    ParserModule::ParseFloat(std::string param)
 {
+	LexicCheckFloat(param);
 	size_t i = 0;
 	while (i < param.size())
 	{
@@ -249,6 +303,7 @@ float    ParserModule::ParseFloat(std::string param)
 
 double   ParserModule::ParseDouble(std::string param)
 {
+	LexicCheckFloat(param);
 	size_t i = 0;
 	while (i < param.size())
 	{

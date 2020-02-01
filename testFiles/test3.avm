@@ -18,6 +18,10 @@ assert double(42.42)
 push int8(42)
 push int8(-42)
 
+
+push int82(42)
+push int8(-4.2)
+
 push int8(a42)
 push int8(+42)
 push int8((42)
@@ -30,6 +34,13 @@ push int8(-42
 
 push int16(-33)
 push int16(55)
+
+push double_(42.42)
+push double(a42.42)
+push double(.4242)
+push double(42.42.)
+push double(-42.42)
+push double(42.42)asd
 
 
 exit
