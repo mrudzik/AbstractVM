@@ -1,5 +1,5 @@
 push int32(42)
-push int32(33)
+push int32(-33)
 
 add
 
@@ -14,5 +14,22 @@ dump
 pop
 
 assert double(42.42)
+
+push int8(42)
+push int8(-42)
+
+push int8(a42)
+push int8(+42)
+push int8((42)
+push int8(1(-42)
+push int8( -42)
+
+
+push int8(42)asd
+push int8(-42
+
+push int16(-33)
+push int16(55)
+
 
 exit

@@ -68,8 +68,86 @@ Command* ParserModule::ParseLine(s_LexerLine toParse)
 
 
 
+
+
+
+
+void 	ParserModule::LexicCheckInt(std::string param)
+{
+	
+	if (param.compare(0, 3, "int") != 0)
+		throw LexicalException();
+
+	if (param.compare(3, 1, "8") != 0 &&
+		param.compare(3, 2, "16") != 0 &&
+		param.compare(3, 2, "32") != 0)
+		throw LexicalException();
+
+	int phase = 0;
+	bool minus = false;
+	for (size_t i = 3; i < param.size(); i++)
+	{
+		char ch = param.at(i);
+		if (phase == 0)
+		{// int|1|6(123124)
+			if (isdigit(ch))
+				continue;
+			else if (ch == '(')
+			{// int16|(|123124)
+				phase++;
+				continue;
+			}
+			std::cout << "Phase 0 error" << std::endl;
+			throw LexicalException();
+		}
+		if (phase == 1)
+		{// int16(|1|23124)
+			if (isdigit(ch))
+				continue;
+			else if (ch == '-')
+			{
+				if (param.at(i - 1) != '(')
+					throw LexicalException();
+				if (minus)
+					throw LexicalException();
+				minus = true;
+				continue;
+			}
+			else if (ch == ')')
+			{// int16(123124|)|
+				return;
+			}
+			std::cout << "Phase 1 error" << std::endl;
+			throw LexicalException();
+		}
+	}
+	throw LexicalException();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int8_t   ParserModule::ParseInt8_t(std::string param)
 {
+	LexicCheckInt(param);
 	size_t i = 0;
 	while (i < param.size())
 	{
@@ -94,6 +172,7 @@ int8_t   ParserModule::ParseInt8_t(std::string param)
 
 int16_t  ParserModule::ParseInt16_t(std::string param)
 {
+	LexicCheckInt(param);
 	size_t i = 0;
 	while (i < param.size())
 	{
@@ -118,6 +197,7 @@ int16_t  ParserModule::ParseInt16_t(std::string param)
 
 int32_t  ParserModule::ParseInt32_t(std::string param)
 {
+	LexicCheckInt(param);
 	size_t i = 0;
 	while (i < param.size())
 	{
@@ -156,9 +236,9 @@ float    ParserModule::ParseFloat(std::string param)
 
 
 			float tempVal = static_cast<float>((atof(param.c_str() + i)));
-			if (isnan(tempVal))
+			if (std::isnan(tempVal))
 				throw LexicalException();
-			if (isinf(tempVal))
+			if (std::isinf(tempVal))
 				throw OverflowException();
 			return tempVal;
 		}
@@ -179,9 +259,9 @@ double   ParserModule::ParseDouble(std::string param)
 			i++;
 
 			double tempVal = atof(param.c_str() + i);
-			if (isnan(tempVal))
+			if (std::isnan(tempVal))
 				throw LexicalException();
-			if (isinf(tempVal))
+			if (std::isinf(tempVal))
 				throw OverflowException();
 			return tempVal;
 		}
@@ -189,3 +269,5 @@ double   ParserModule::ParseDouble(std::string param)
 	}
 	throw OperandNotSpecifiedException();
 }
+
+
