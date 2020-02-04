@@ -10,7 +10,7 @@ class CustomException : public std::logic_error
 {
 public:
 	CustomException(std::string str)
-		: logic_error("\033[21;31m" + str + "\033[0m")
+		: logic_error("\033[21;31mError:\033[0m " + str)
 	{ }
 };
 
@@ -115,6 +115,15 @@ public:
 	UnknownOperandException()
 		: CustomException(
 			"An operand is unknown")
+	{ }
+};
+
+class FoundErrorsException : public CustomException
+{
+public:
+	FoundErrorsException()
+		: CustomException(
+			"Found Errors. The programm cannot continue it's work")
 	{ }
 };
 

@@ -27,7 +27,9 @@ private:
 public:
 	Command(IOperand* newValue, e_InstructionType instruction);
 	~Command();
+
 	void ShowCommand();
+	e_InstructionType	GetInstruction();
 };
 
 #endif

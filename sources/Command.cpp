@@ -23,3 +23,8 @@ void Command::ShowCommand()
 	std::cout << EnumStringTranslator::EnumOperand(_value->getType());
 	std::cout << " " << _value->toString();
 }
+
+e_InstructionType	Command::GetInstruction()
+{
+	return _instrType;
+}

@@ -79,6 +79,9 @@ void 	LexerModule::SetupNewLines(std::vector<std::string> lines)
 		tempStruct.tokens = SeparateWords(tempStruct.line);
 		_lexedLines.push_back(tempStruct);
 	}
+
+	ClearEmptyLines();
+	ShowScannedData();
 }
 
 void 	LexerModule::ClearEmptyLines()

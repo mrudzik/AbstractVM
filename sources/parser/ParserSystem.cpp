@@ -58,59 +58,67 @@ std::vector<std::string> 	ParserSystem::ReadFileLines(std::string path)
 	return result;
 }
 
+void 	ParserSystem::ParseLinesToCommands()
+{
+	// Loop
+	size_t size = lexerMod->GetLexedSize();
+	size_t i = 0;
+	size_t foundErrors = 0;
+	bool foundExit = false;
+
+	while (i < size)
+	{
+		try
+		{// Line Tokens to Parser
+			Command *tempCommand = parserMod->ParseLine(lexerMod->GetLexedLine(i));
+			// Recieve Command to result
+			// If there is no exceptions than instance will be added to result
+			resultCommands.push_back(tempCommand);
+			if (tempCommand->GetInstruction() == e_InstructionType::Exit)
+				foundExit = true;
+		}
+		catch (const std::exception& err)
+		{
+			std::cout << "Line " << i + 1 << ": "
+				<< "\033[21;36m" << lexerMod->GetLexedLine(i).line << "\033[0m\n"
+				<< err.what() << std::endl;
+			foundErrors++;
+		}
+		i++;
+	}
+	
+	if (!foundExit)
+		throw NoExitException();
+
+	if (foundErrors != 0)
+	{// Throw Custom exception that found alot of Errors
+		throw FoundErrorsException();
+	}
+}
+
+
+
 void 	ParserSystem::ParseInputFile(std::string path)
 {	// TODO Return Vector of ICommands
+
 	std::cout << path << std::endl;
 	// Extract string contents from file
 	// Lexer Content on Lines Split
 	// Lexer Lines on Tokens Split
 	lexerMod->SetupNewLines(ReadFileLines(path));
-	// Lexer Clear empty lines with no tokens
-	lexerMod->ClearEmptyLines();
-	lexerMod->ShowScannedData();
-
-
-	// Loop
-	size_t size = lexerMod->GetLexedSize();
-	size_t i = 0;
-	size_t foundErrors = 0;
-	while (i < size)
+	try
 	{
-		bool foundError = false;
-		// Line Tokens to Parser
-		try
-		{
-			Command *tempCommand = parserMod->ParseLine(lexerMod->GetLexedLine(i));
-			// Recieve Command to result
-			// If there is no exceptions than instance will be added to result
-			resultCommands.push_back(tempCommand);
-		}
-		catch (const std::exception& err)
-		{
-			std::cout << "Error at line " << i + 1 << ":\n"
-				<< "\t\033[21;36m" << lexerMod->GetLexedLine(i).line << "\033[0m\n"
-				<< "\t" << err.what() << std::endl;
-			foundError = true;
-		}
-		
-		if (foundError)
-		{
-			foundErrors++;
-			i++;
-			continue;
-		}
-		i++;
+		ParseLinesToCommands();
 	}
-
-
-	if (foundErrors != 0)
-	{// Throw Custom exception that found alot of Errors
-		std::cout << "Found Errors. The programm cannot continue it's work" << std::endl;
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n'
+		<< "Closing Program" << '\n';
+		return;
 	}
 
 	// Return Result
-	 
-	i = 0;
+	size_t i = 0;
 	while (i < resultCommands.size())
 	{
 		resultCommands.at(i)->ShowCommand();

@@ -21,6 +21,8 @@ private:
 
 	std::vector<std::string> 	ReadFileLines(std::string path);
 
+	void ClearResults();
+	void ParseLinesToCommands();
 public:
     ParserSystem(/* args */);
     ~ParserSystem();
@@ -29,7 +31,7 @@ public:
     void ParseInputFile(std::string path);
     // Used when typing program in manual mode
     void ParseInputLine(std::string line);
-	void ClearResults();
+
 
 };
 

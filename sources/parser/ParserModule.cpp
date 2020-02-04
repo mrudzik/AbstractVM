@@ -97,7 +97,6 @@ void 	ParserModule::LexicCheckInt(std::string param)
 				phase++;
 				continue;
 			}
-			std::cout << "Phase 0 error" << std::endl;
 			throw LexicalException();
 		}
 		if (phase == 1)
@@ -115,13 +114,18 @@ void 	ParserModule::LexicCheckInt(std::string param)
 			}
 			else if (ch == ')')
 			{// int16(123124|)|
-				return;
+				phase++;
+				continue;
 			}
-			std::cout << "Phase 1 error" << std::endl;
+			throw LexicalException();
+		}
+		if (phase == 2)
+		{// if already here means that after ')' something else
+			if (ch == ';')
+				return;// Comment everything is okay
 			throw LexicalException();
 		}
 	}
-	throw LexicalException();
 }
 
 
@@ -170,7 +174,8 @@ void 	ParserModule::LexicCheckFloat(std::string param)
 			}
 			else if (ch == ')')
 			{// float(123124|)|
-				return;
+				phase++;
+				continue;
 			}
 			else if (ch == '.')
 			{
@@ -181,11 +186,15 @@ void 	ParserModule::LexicCheckFloat(std::string param)
 				point = true;
 				continue;
 			}
-			std::cout << "Phase 1 error" << std::endl;
+			throw LexicalException();
+		}
+		if (phase == 2)
+		{// if already here means that after ')' something else
+			if (ch == ';')
+				return;// Comment everything is okay
 			throw LexicalException();
 		}
 	}
-	throw LexicalException();
 }
 
 
