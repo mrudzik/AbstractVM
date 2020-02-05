@@ -30,6 +30,7 @@ public:
 
 	void ShowCommand();
 	e_InstructionType	GetInstruction();
+	IOperand* GetOperand();
 };
 
 #endif

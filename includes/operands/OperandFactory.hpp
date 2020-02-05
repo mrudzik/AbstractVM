@@ -28,6 +28,7 @@ public:
 	static IOperand* CreateFloat(float value);
 	static IOperand* CreateDouble(double value);
 	
+	static IOperand* DuplicateOperand(IOperand* operand);
 };
 
 #endif

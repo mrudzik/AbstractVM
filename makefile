@@ -12,7 +12,8 @@ SRC = 	main.cpp	\
 		CommandFactory.cpp		\
 		operands/OperandFactory.cpp 	\
 		operands/OperandTemplate.cpp	\
-		utility/EnumStringTranslator.cpp	
+		utility/EnumStringTranslator.cpp	\
+		core/Core.cpp	
 
 		
 
@@ -23,7 +24,8 @@ INCLUDES	=	-I $(INC_DIR)	\
 				-I $(INC_DIR)parser/		\
 				-I $(INC_DIR)exceptions/	\
 				-I $(INC_DIR)operands/		\
-				-I $(INC_DIR)utility/
+				-I $(INC_DIR)utility/		\
+				-I $(INC_DIR)core/
 
 #FRAMEWORKS	=	
 	# For Graphic projects #-w -lSDL2 -w -lSDL2_image -w -lSDL2_ttf

@@ -17,7 +17,7 @@ private:
     ParserModule*	parserMod;
 
 
-	std::vector<Command*> resultCommands;
+	std::vector<Command*> _resultCommands;
 
 	std::vector<std::string> 	ReadFileLines(std::string path);
 

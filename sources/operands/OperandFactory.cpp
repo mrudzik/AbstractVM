@@ -56,3 +56,35 @@ IOperand* OperandFactory::CreateDouble(double value)
 {
 	return new OperandTemplate<double>(value, e_OperandType::Double);
 }
+
+
+
+
+IOperand* OperandFactory::DuplicateOperand(IOperand* operand)
+{
+	e_OperandType type = operand->getType();
+	
+
+	switch (type)
+	{
+		case e_OperandType::Int8:
+			return new OperandTemplate<int8_t>
+				(((OperandTemplate<int8_t>*)(operand))->getValue(), type);
+		case e_OperandType::Int16:
+			return new OperandTemplate<int16_t>
+				(((OperandTemplate<int16_t>*)(operand))->getValue(), type);
+		case e_OperandType::Int32:
+			return new OperandTemplate<int32_t>
+				(((OperandTemplate<int32_t>*)(operand))->getValue(), type);
+		case e_OperandType::Float:
+			return new OperandTemplate<float>
+				(((OperandTemplate<float>*)(operand))->getValue(), type);
+		case e_OperandType::Double:
+			return new OperandTemplate<double>
+				(((OperandTemplate<double>*)(operand))->getValue(), type);
+		default:
+			throw UnknownOperandException();
+	}
+
+	throw std::logic_error("Failed to duplicate Operand");
+}

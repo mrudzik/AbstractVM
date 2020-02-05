@@ -23,7 +23,6 @@ public:
 	// Type of the instance
 	virtual e_OperandType getType(void) const = 0;
 
-
 	// // Sum
 	// virtual IOperand const *operator+(IOperand const &rhs) const = 0;
 	// // Difference

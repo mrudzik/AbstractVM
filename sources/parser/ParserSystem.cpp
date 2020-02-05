@@ -6,6 +6,7 @@
 
 #include "CommandFactory.hpp"
 #include "OperandFactory.hpp"
+#include "Core.hpp"
 
 ParserSystem::ParserSystem(/* args */)
 {
@@ -23,14 +24,14 @@ ParserSystem::~ParserSystem()
 
 void ParserSystem::ClearResults()
 {
-	int i = static_cast<int>(resultCommands.size()) - 1;
+	int i = static_cast<int>(_resultCommands.size()) - 1;
 	while (i > -1)
 	{// Releasing memory behind pointers
-		delete resultCommands.at(i);
+		delete _resultCommands.at(i);
 		i--;
 	}
 	// Releasing now pointers
-	resultCommands.clear();
+	_resultCommands.clear();
 }
 
 
@@ -73,7 +74,7 @@ void 	ParserSystem::ParseLinesToCommands()
 			Command *tempCommand = parserMod->ParseLine(lexerMod->GetLexedLine(i));
 			// Recieve Command to result
 			// If there is no exceptions than instance will be added to result
-			resultCommands.push_back(tempCommand);
+			_resultCommands.push_back(tempCommand);
 			if (tempCommand->GetInstruction() == e_InstructionType::Exit)
 				foundExit = true;
 		}
@@ -119,11 +120,14 @@ void 	ParserSystem::ParseInputFile(std::string path)
 
 	// Return Result
 	size_t i = 0;
-	while (i < resultCommands.size())
+	while (i < _resultCommands.size())
 	{
-		resultCommands.at(i)->ShowCommand();
+		_resultCommands.at(i)->ShowCommand();
 		i++;
 	}
+
+	std::cout << "\n\n--------\nTesting Core" << std::endl;
+	Core testCore(_resultCommands);
 
 	std::cout << "\nEnd of Parser System" << std::endl;
 }

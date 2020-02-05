@@ -10,6 +10,7 @@ Command::~Command()
 	if (_value != NULL)
 	{
 		delete _value;
+		_value = NULL;
 	}
 }
 
@@ -27,4 +28,9 @@ void Command::ShowCommand()
 e_InstructionType	Command::GetInstruction()
 {
 	return _instrType;
+}
+
+IOperand* 	Command::GetOperand()
+{
+	return _value;
 }

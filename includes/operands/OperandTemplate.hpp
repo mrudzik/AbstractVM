@@ -26,6 +26,11 @@ class OperandTemplate : public IOperand
 		return _type;
 	}
 
+	T getValue() const
+	{
+		return _value;
+	}
+
 	virtual std::string const toString(void) const
 	{
 		std::stringstream ss;
