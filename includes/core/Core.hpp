@@ -16,6 +16,7 @@ private:
 	void Push(IOperand* operand);
 	void Pop();
 	void Dump();
+	void Assert(IOperand* operand);
 
 public:
 	Core(std::vector<Command*> commandList);
