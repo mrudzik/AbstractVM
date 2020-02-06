@@ -22,13 +22,16 @@ public:
 
 	static IOperand* CreateOperandFromToken(std::string token);
 	
-	static IOperand* CreateInt8(int8_t value);
-	static IOperand* CreateInt16(int16_t value);
-	static IOperand* CreateInt32(int32_t value);
-	static IOperand* CreateFloat(float value);
-	static IOperand* CreateDouble(double value);
-	
+	// static IOperand* CreateInt8(int8_t value);
+	// static IOperand* CreateInt16(int16_t value);
+	// static IOperand* CreateInt32(int32_t value);
+	// static IOperand* CreateFloat(float value);
+	// static IOperand* CreateDouble(double value);
+	template <typename T>
+	static IOperand* CreateTemplate(T value);
+
 	static IOperand* DuplicateOperand(IOperand* operand);
+	static IOperand* MathOperands(IOperand* val1, IOperand* val2, e_MathType mathType);
 };
 
 #endif

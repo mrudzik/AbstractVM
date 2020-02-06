@@ -129,3 +129,22 @@ void Core::Assert(IOperand* operand)
 }
 
 
+// Math
+
+void Core::Math(e_MathType mathType)
+{
+	size_t size = _operandStack.size();
+	if (size <= 1)
+		throw MathEmptyStackException();
+	
+	IOperand* val1 = _operandStack.at(size - 1);
+	IOperand* val2 = _operandStack.at(size - 2);
+	Pop();
+	Pop();
+
+	IOperand* result = OperandFactory::MathOperands(val1, val2, mathType);
+	_operandStack.push_back(result);
+}
+
+
+

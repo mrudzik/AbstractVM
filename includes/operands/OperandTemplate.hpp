@@ -4,6 +4,17 @@
 #include "IOperand.hpp"
 #include <sstream>
 
+
+
+enum e_MathType
+{
+	Add, Sub,
+	Mul, Div,
+	Mod
+};
+
+
+
 template <typename T>
 class OperandTemplate : public IOperand
 {
@@ -40,6 +51,12 @@ class OperandTemplate : public IOperand
 			ss << _value;
 		return ss.str();
 	}
+
+	virtual IOperand const *operator+(IOperand const &rhs) const
+	{
+		// OperandFactory::
+	}
+
 };
 
 

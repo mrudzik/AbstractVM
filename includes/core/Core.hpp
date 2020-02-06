@@ -17,6 +17,13 @@ private:
 	void Pop();
 	void Dump();
 	void Assert(IOperand* operand);
+	// Math
+	// void Add();
+	// void Sub();
+	// void Mul();
+	// void Div();
+	// void Mod();
+	void Math(e_MathType mathType);
 
 public:
 	Core(std::vector<Command*> commandList);
