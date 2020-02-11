@@ -30,10 +30,10 @@ IOperand const *AbstractOperand::operator/(IOperand const &rhs) const
 	return OperandFactory::MathOperands(this, &rhs, e_MathType::math_Div);
 }
 // template <typename T>
-// IOperand const *OperandTemplate<T>::operator%(IOperand const &rhs) const
-// {
-// 	return OperandFactory::MathOperands(&this, &rhs, e_MathType::math_Mod);
-// }
+IOperand const *AbstractOperand::operator%(IOperand const &rhs) const
+{
+	return OperandFactory::MathOperands(this, &rhs, e_MathType::math_Mod);
+}
 
 
 // template <typename T>

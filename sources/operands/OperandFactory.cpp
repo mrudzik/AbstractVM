@@ -168,6 +168,12 @@ IOperand* OperandFactory::MathStage2(const IOperand* val1, const IOperand* val2,
 	OperandTemplate<T>* cast1 = (OperandTemplate<T>*)(val1);
 	OperandTemplate<V>* cast2 = (OperandTemplate<V>*)(val2);
 
+	e_OperandType maxType;
+	if (cast1->getType() >= cast2->getType())
+		maxType = cast1->getType();
+	else
+		maxType = cast2->getType();
+
 	switch (mathType)
 	{
 	case e_MathType::math_Add:
@@ -178,8 +184,20 @@ IOperand* OperandFactory::MathStage2(const IOperand* val1, const IOperand* val2,
 		return CreateTemplate(cast1->getValue() * cast2->getValue());
 	case e_MathType::math_Div:
 		return CreateTemplate(cast1->getValue() / cast2->getValue());
-	// case e_MathType::math_Mod:
-	// 	return CreateTemplate(cast1->getValue() % cast2->getValue());
+	case e_MathType::math_Mod:
+		switch (maxType)
+		{
+		case e_OperandType::Int8:
+			return CreateTemplate(cast1->asI8() % cast2->asI8());
+		case e_OperandType::Int16:
+			return CreateTemplate(cast1->asI16() % cast2->asI16());
+		case e_OperandType::Int32:
+			return CreateTemplate(cast1->asI32() % cast2->asI32());
+		case e_OperandType::Float:
+			return CreateTemplate(fmod(cast1->asFloat(), cast2->asFloat()));
+		case e_OperandType::Double:
+			return CreateTemplate(fmod(cast1->asDouble(), cast2->asDouble()));
+		}
 	}
 	throw UnknownOperandException();
 }

@@ -9,8 +9,8 @@
 enum e_MathType
 {
 	math_Add, math_Sub,
-	math_Mul, math_Div
-	// math_Mod
+	math_Mul, math_Div,
+	math_Mod
 };
 
 
@@ -29,12 +29,23 @@ public:
 	{
 		return _type;
 	}
-
+	virtual int getPrecision(void) const
+	{
+		return static_cast<int>(_type);
+	}
+	
 	virtual IOperand const *operator+(IOperand const &rhs) const;
 	virtual IOperand const *operator-(IOperand const &rhs) const;
 	virtual IOperand const *operator*(IOperand const &rhs) const;
 	virtual IOperand const *operator/(IOperand const &rhs) const;
-	// virtual IOperand const *operator%(IOperand const &rhs) const;
+	virtual IOperand const *operator%(IOperand const &rhs) const;
+
+
+	virtual int8_t asI8() const = 0;
+	virtual int16_t asI16() const = 0;
+	virtual int32_t asI32() const = 0;
+	virtual float asFloat() const = 0;
+	virtual double asDouble() const = 0;
 };
 
 
@@ -44,8 +55,6 @@ class OperandTemplate :  public AbstractOperand
 	// public:
 private:
 	T _value;
-	
-	
 
 public:
 	OperandTemplate(T value, e_OperandType type)
@@ -62,6 +71,7 @@ public:
 	{
 		return _value;
 	}
+	
 
 	virtual std::string const toString(void) const
 	{
@@ -73,6 +83,26 @@ public:
 		return ss.str();
 	}
 
+	virtual int8_t asI8() const
+	{
+		return static_cast<int8_t>(_value);
+	}
+	virtual int16_t asI16() const
+	{
+		return static_cast<int16_t>(_value);
+	}
+	virtual int32_t asI32() const
+	{
+		return static_cast<int32_t>(_value);
+	}
+	virtual float asFloat() const
+	{
+		return static_cast<float>(_value);
+	}
+	virtual double asDouble() const 
+	{
+		return static_cast<double>(_value);
+	}
 
 
 };

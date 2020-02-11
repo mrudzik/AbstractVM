@@ -47,7 +47,7 @@ Core::Core(std::vector<Command*> commandList)
 				break;
 			case e_InstructionType::Mod:
 				std::cout << "Mod" << std::endl;
-				// Math(e_MathType::math_Mod);
+				Math(e_MathType::math_Mod);
 				break;
 			case e_InstructionType::Print:
 				std::cout << "Print" << std::endl;
