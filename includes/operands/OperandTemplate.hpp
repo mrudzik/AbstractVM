@@ -2,8 +2,9 @@
 #define OPERAND_HPP
 
 #include "IOperand.hpp"
+#include "CustomExceptions.hpp"
 #include <sstream>
-
+#include <cmath>
 
 
 enum e_MathType
@@ -60,7 +61,15 @@ public:
 	OperandTemplate(T value, e_OperandType type)
 		: AbstractOperand(type),
 			_value(value)
-	{ }
+	{
+		if (_type == e_OperandType::Float || _type == e_OperandType::Double)
+		{ // Check on inf and nan
+			if (std::isnan(_value))
+				throw CustomException("Value is NaN");
+			if (std::isinf(_value))
+				throw CustomException("Value is Inf");
+		}
+	}
 
 	~OperandTemplate()
 	{ }

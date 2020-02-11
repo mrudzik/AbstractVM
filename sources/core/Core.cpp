@@ -61,7 +61,7 @@ Core::Core(std::vector<Command*> commandList)
 		}
 		catch(const std::exception& e)
 		{
-			std::cout << "Failed to execute command " <<  i + 1 << ": "<< e.what();
+			std::cout << "Failed to execute command " <<  i + 1 << ": "<< e.what() << "\n -> ";
 			commandList.at(i)->ShowCommand();
 			std::cout << std::endl;
 		}

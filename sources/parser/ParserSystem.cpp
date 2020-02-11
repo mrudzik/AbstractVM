@@ -122,6 +122,7 @@ void 	ParserSystem::ParseInputFile(std::string path)
 	size_t i = 0;
 	while (i < _resultCommands.size())
 	{
+		std::cout << "\n";
 		_resultCommands.at(i)->ShowCommand();
 		i++;
 	}

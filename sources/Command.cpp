@@ -17,7 +17,7 @@ Command::~Command()
 
 void Command::ShowCommand()
 {
-	std::cout << "\n" << EnumStringTranslator::EnumInstruction(_instrType) << " ";
+	std::cout << "\033[21;36m" << EnumStringTranslator::EnumInstruction(_instrType) << "\033[0m ";
 	if (_value == NULL)
 		return;
 	
