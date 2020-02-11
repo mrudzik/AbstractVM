@@ -125,7 +125,7 @@ IOperand* OperandFactory::DuplicateOperand(IOperand* operand)
 
 
 
-IOperand* OperandFactory::MathOperands(IOperand* val1, IOperand* val2, e_MathType mathType)
+IOperand* OperandFactory::MathOperands(const IOperand* val1, const IOperand* val2, e_MathType mathType)
 {
 	switch (val1->getType())
 	{
@@ -144,7 +144,7 @@ IOperand* OperandFactory::MathOperands(IOperand* val1, IOperand* val2, e_MathTyp
 }
 
 template <typename T>
-IOperand* OperandFactory::MathStage1(IOperand* val1, IOperand* val2, e_MathType mathType)
+IOperand* OperandFactory::MathStage1(const IOperand* val1, const IOperand* val2, e_MathType mathType)
 {
 	switch (val2->getType())
 	{
@@ -163,7 +163,7 @@ IOperand* OperandFactory::MathStage1(IOperand* val1, IOperand* val2, e_MathType 
 }
 
 template <typename T, typename V>
-IOperand* OperandFactory::MathStage2(IOperand* val1, IOperand* val2, e_MathType mathType)
+IOperand* OperandFactory::MathStage2(const IOperand* val1, const IOperand* val2, e_MathType mathType)
 {
 	OperandTemplate<T>* cast1 = (OperandTemplate<T>*)(val1);
 	OperandTemplate<V>* cast2 = (OperandTemplate<V>*)(val2);

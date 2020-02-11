@@ -15,27 +15,48 @@ enum e_MathType
 
 
 
-template <typename T>
-class OperandTemplate : public IOperand
+class AbstractOperand : public IOperand
 {
-	public:
-// private:
-	T _value;
+	// Implemented Logical stuff here
+protected:
 	e_OperandType _type;
+
+public:
+	AbstractOperand(e_OperandType type)
+		: _type (type)
+	{	}
+	virtual e_OperandType getType() const
+	{
+		return _type;
+	}
+
+	virtual IOperand const *operator+(IOperand const &rhs) const;
+	virtual IOperand const *operator-(IOperand const &rhs) const;
+	virtual IOperand const *operator*(IOperand const &rhs) const;
+	virtual IOperand const *operator/(IOperand const &rhs) const;
+	// virtual IOperand const *operator%(IOperand const &rhs) const;
+};
+
+
+template <typename T>
+class OperandTemplate :  public AbstractOperand
+{
+	// public:
+private:
+	T _value;
+	
 	
 
-// public:
+public:
 	OperandTemplate(T value, e_OperandType type)
-		: _value(value), _type(type)
+		: AbstractOperand(type),
+			_value(value)
 	{ }
 
 	~OperandTemplate()
 	{ }
 
-	virtual e_OperandType getType() const
-	{
-		return _type;
-	}
+	
 
 	T getValue() const
 	{
@@ -52,11 +73,7 @@ class OperandTemplate : public IOperand
 		return ss.str();
 	}
 
-	virtual IOperand const *operator+(IOperand const &rhs) const;
-	virtual IOperand const *operator-(IOperand const &rhs) const;
-	virtual IOperand const *operator*(IOperand const &rhs) const;
-	virtual IOperand const *operator/(IOperand const &rhs) const;
-	// virtual IOperand const *operator%(IOperand const &rhs) const;
+
 
 };
 

@@ -31,12 +31,12 @@ public:
 	static IOperand* CreateTemplate(T value);
 
 	static IOperand* DuplicateOperand(IOperand* operand);
-	static IOperand* MathOperands(IOperand* val1, IOperand* val2, e_MathType mathType);
+	static IOperand* MathOperands(const IOperand* val1, const IOperand* val2, e_MathType mathType);
 
 	template <typename T>
-	static IOperand* MathStage1(IOperand* val1, IOperand* val2, e_MathType mathType);
+	static IOperand* MathStage1(const IOperand* val1, const IOperand* val2, e_MathType mathType);
 	template <typename T, typename V>
-	static IOperand* MathStage2(IOperand* val1, IOperand* val2, e_MathType mathType);
+	static IOperand* MathStage2(const IOperand* val1, const IOperand* val2, e_MathType mathType);
 
 
 };

@@ -1,25 +1,33 @@
 #include "OperandTemplate.hpp"
 #include "OperandFactory.hpp"
 
-template <typename T>
-IOperand const *OperandTemplate<T>::operator+(IOperand const &rhs) const
+IOperand const *AbstractOperand::operator+(IOperand const &rhs) const
 {
-	return OperandFactory::MathOperands(&this, &rhs, e_MathType::math_Add);
+	// (void)rhs;
+	// 	return OperandFactory::CreateTemplate<int8_t>(123);
+
+	return OperandFactory::MathOperands(this, &rhs, e_MathType::math_Add);
 }
-template <typename T>
-IOperand const *OperandTemplate<T>::operator-(IOperand const &rhs) const
+IOperand const *AbstractOperand::operator-(IOperand const &rhs) const
 {
-	return OperandFactory::MathOperands(&this, &rhs, e_MathType::math_Sub);
+	// (void)rhs;
+		// return OperandFactory::CreateTemplate<int8_t>(123);
+
+	return OperandFactory::MathOperands(this, &rhs, e_MathType::math_Sub);
 }
-template <typename T>
-IOperand const *OperandTemplate<T>::operator*(IOperand const &rhs) const
+IOperand const *AbstractOperand::operator*(IOperand const &rhs) const
 {
-	return OperandFactory::MathOperands(&this, &rhs, e_MathType::math_Mul);
+	// (void)rhs;
+	// 	return OperandFactory::CreateTemplate<int8_t>(123);
+
+	return OperandFactory::MathOperands(this, &rhs, e_MathType::math_Mul);
 }
-template <typename T>
-IOperand const *OperandTemplate<T>::operator/(IOperand const &rhs) const
+IOperand const *AbstractOperand::operator/(IOperand const &rhs) const
 {
-	return OperandFactory::MathOperands(&this, &rhs, e_MathType::math_Div);
+	// (void)rhs;
+	// 	return OperandFactory::CreateTemplate<int8_t>(123);
+
+	return OperandFactory::MathOperands(this, &rhs, e_MathType::math_Div);
 }
 // template <typename T>
 // IOperand const *OperandTemplate<T>::operator%(IOperand const &rhs) const
