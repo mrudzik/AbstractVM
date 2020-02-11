@@ -4,7 +4,7 @@
 
 #include <vector>
 #include "Command.hpp"
-
+#include "OperandTemplate.hpp"
 class Core
 {
 private:

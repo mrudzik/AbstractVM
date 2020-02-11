@@ -8,9 +8,9 @@
 
 enum e_MathType
 {
-	Add, Sub,
-	Mul, Div,
-	Mod
+	math_Add, math_Sub,
+	math_Mul, math_Div
+	// math_Mod
 };
 
 
@@ -52,10 +52,11 @@ class OperandTemplate : public IOperand
 		return ss.str();
 	}
 
-	virtual IOperand const *operator+(IOperand const &rhs) const
-	{
-		// OperandFactory::
-	}
+	virtual IOperand const *operator+(IOperand const &rhs) const;
+	virtual IOperand const *operator-(IOperand const &rhs) const;
+	virtual IOperand const *operator*(IOperand const &rhs) const;
+	virtual IOperand const *operator/(IOperand const &rhs) const;
+	// virtual IOperand const *operator%(IOperand const &rhs) const;
 
 };
 

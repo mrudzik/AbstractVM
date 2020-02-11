@@ -31,18 +31,23 @@ Core::Core(std::vector<Command*> commandList)
 				break;
 			case e_InstructionType::Add:
 				std::cout << "Add" << std::endl;
+				Math(e_MathType::math_Add);
 				break;
 			case e_InstructionType::Sub:
 				std::cout << "Sub" << std::endl;
+				Math(e_MathType::math_Sub);
 				break;
 			case e_InstructionType::Mul:
 				std::cout << "Mul" << std::endl;
+				Math(e_MathType::math_Mul);
 				break;
 			case e_InstructionType::Div:
 				std::cout << "Div" << std::endl;
+				Math(e_MathType::math_Div);
 				break;
 			case e_InstructionType::Mod:
 				std::cout << "Mod" << std::endl;
+				// Math(e_MathType::math_Mod);
 				break;
 			case e_InstructionType::Print:
 				std::cout << "Print" << std::endl;
@@ -139,10 +144,9 @@ void Core::Math(e_MathType mathType)
 	
 	IOperand* val1 = _operandStack.at(size - 1);
 	IOperand* val2 = _operandStack.at(size - 2);
-	Pop();
-	Pop();
-
 	IOperand* result = OperandFactory::MathOperands(val1, val2, mathType);
+	Pop();
+	Pop();
 	_operandStack.push_back(result);
 }
 

@@ -69,19 +69,19 @@ IOperand* OperandFactory::CreateOperandFromToken(std::string token)
 template <typename T>
 IOperand* OperandFactory::CreateTemplate(T value)
 {
-	switch (typeid(value).name())
-	{
-	case typeid(int8_t).name():
+	std::string valType = typeid(value).name();
+
+	if (valType.compare(typeid(int8_t).name()) == 0)
 		return new OperandTemplate<int8_t>(value, e_OperandType::Int8);
-	case typeid(int16_t).name():
+	if (valType.compare(typeid(int16_t).name()) == 0)
 		return new OperandTemplate<int16_t>(value, e_OperandType::Int16);
-	case typeid(int32_t).name():
+	if (valType.compare(typeid(int32_t).name()) == 0)
 		return new OperandTemplate<int32_t>(value, e_OperandType::Int32);
-	case typeid(float).name():
+	if (valType.compare(typeid(float).name()) == 0)
 		return new OperandTemplate<float>(value, e_OperandType::Float);
-	case typeid(double).name():
+	if (valType.compare(typeid(double).name()) == 0)
 		return new OperandTemplate<double>(value, e_OperandType::Double);
-	}
+
 	throw UnknownOperandException();
 }
 
@@ -127,77 +127,59 @@ IOperand* OperandFactory::DuplicateOperand(IOperand* operand)
 
 IOperand* OperandFactory::MathOperands(IOperand* val1, IOperand* val2, e_MathType mathType)
 {
-	IOperand* result;
-
 	switch (val1->getType())
 	{
 	case e_OperandType::Int8:
-		result = MathStage1<int8_t>(val1, val2, mathType);
-		break;
+		return MathStage1<int8_t>(val1, val2, mathType);
 	case e_OperandType::Int16:
-		result = MathStage1<int16_t>(val1, val2, mathType);
-		break;
+		return MathStage1<int16_t>(val1, val2, mathType);
 	case e_OperandType::Int32:
-		result = MathStage1<int32_t>(val1, val2, mathType);
-		break;
+		return MathStage1<int32_t>(val1, val2, mathType);
 	case e_OperandType::Float:
-		result = MathStage1<float>(val1, val2, mathType);
-		break;
+		return MathStage1<float>(val1, val2, mathType);
 	case e_OperandType::Double:
-		result = MathStage1<double>(val1, val2, mathType);
-		break;
-	default:
-		break;
+		return MathStage1<double>(val1, val2, mathType);
 	}
+	throw UnknownOperandException();
 }
 
 template <typename T>
-IOperand* MathStage1(IOperand* val1, IOperand* val2, e_MathType mathType)
+IOperand* OperandFactory::MathStage1(IOperand* val1, IOperand* val2, e_MathType mathType)
 {
-	IOperand* result;
-
 	switch (val2->getType())
 	{
 	case e_OperandType::Int8:
-		result = MathStage2<T, int8_t>(val1, val2, mathType);
-		break;
+		return MathStage2<T, int8_t>(val1, val2, mathType);
 	case e_OperandType::Int16:
-		result = MathStage2<T, int16_t>(val1, val2, mathType);
-		break;
+		return MathStage2<T, int16_t>(val1, val2, mathType);
 	case e_OperandType::Int32:
-		result = MathStage2<T, int32_t>(val1, val2, mathType);
-		break;
+		return MathStage2<T, int32_t>(val1, val2, mathType);
 	case e_OperandType::Float:
-		result = MathStage2<T, float>(val1, val2, mathType);
-		break;
+		return MathStage2<T, float>(val1, val2, mathType);
 	case e_OperandType::Double:
-		result = MathStage2<T, double>(val1, val2, mathType);
-		break;
-	default:
-		break;
+		return MathStage2<T, double>(val1, val2, mathType);
 	}
+	throw UnknownOperandException();
 }
 
 template <typename T, typename V>
-IOperand* MathStage2(IOperand* val1, IOperand* val2, e_MathType mathType)
+IOperand* OperandFactory::MathStage2(IOperand* val1, IOperand* val2, e_MathType mathType)
 {
 	OperandTemplate<T>* cast1 = (OperandTemplate<T>*)(val1);
 	OperandTemplate<V>* cast2 = (OperandTemplate<V>*)(val2);
 
 	switch (mathType)
 	{
-	case e_MathType::Add:
-		return OperandTemplate(cast1->getValue() + cast2->getValue());
-	case e_MathType::Sub:
-		return OperandTemplate(cast1->getValue() - cast2->getValue());
-	case e_MathType::Mul:
-		return OperandTemplate(cast1->getValue() * cast2->getValue());
-	case e_MathType::Div:
-		return OperandTemplate(cast1->getValue() / cast2->getValue());
-	case e_MathType::Mod:
-		return OperandTemplate(cast1->getValue() % cast2->getValue());
-	
-	default:
-		break;
+	case e_MathType::math_Add:
+		return CreateTemplate(cast1->getValue() + cast2->getValue());
+	case e_MathType::math_Sub:
+		return CreateTemplate(cast1->getValue() - cast2->getValue());
+	case e_MathType::math_Mul:
+		return CreateTemplate(cast1->getValue() * cast2->getValue());
+	case e_MathType::math_Div:
+		return CreateTemplate(cast1->getValue() / cast2->getValue());
+	// case e_MathType::math_Mod:
+	// 	return CreateTemplate(cast1->getValue() % cast2->getValue());
 	}
+	throw UnknownOperandException();
 }
