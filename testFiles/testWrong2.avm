@@ -1,0 +1,4 @@
+push int16(99999999999999999999999)
+push int32(0)
+dump
+exit

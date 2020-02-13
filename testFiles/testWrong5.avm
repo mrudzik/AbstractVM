@@ -1,0 +1,10 @@
+push int32(32)
+push int32(5)
+dump
+add
+dump
+assert int32(37)
+; all asserts below must be false
+assert int32(0)
+assert int16(37)
+exit

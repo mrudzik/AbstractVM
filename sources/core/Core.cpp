@@ -118,9 +118,11 @@ void Core::Assert(IOperand* operand)
 		throw InstructionPopEmptyException();
 
 	IOperand* tempObj = _operandStack.at(size - 1);
-	if (operand->toString().compare(tempObj->toString()) == 0)
-		return; // Everything ok here
-
+	if (operand->getType() == tempObj->getType())
+	{ // Check on the same type
+		if (operand->toString().compare(tempObj->toString()) == 0)
+			return; // Everything ok here
+	}
 	throw FalseAssertException();
 }
 
