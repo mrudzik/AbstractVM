@@ -34,7 +34,7 @@ push float(3.4028038)
 push float(99999988898889888988893999999888.40282038) ;hello
 push float(99999988898889888988893999999888.40282038);hello
 dump ;hello
-mul
+mod
 dump ;hello
 print ; must be error here
 
