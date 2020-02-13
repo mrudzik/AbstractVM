@@ -20,6 +20,7 @@ Core::Core(std::vector<Command*> commandList)
 				Pop();
 				break;
 			case e_InstructionType::Dump:
+			std::cout << "Dump\n";
 				Dump();
 				break;
 			case e_InstructionType::Assert:
@@ -128,13 +129,14 @@ void Core::Assert(IOperand* operand)
 
 void Core::Math(e_MathType mathType)
 {
+	std::cout << "Math\n";
 	size_t size = _operandStack.size();
 	if (size <= 1)
 		throw MathEmptyStackException();
 	
 	IOperand* val1 = _operandStack.at(size - 1);
 	IOperand* val2 = _operandStack.at(size - 2);
-	IOperand* result = OperandFactory::MathOperands(val1, val2, mathType);
+	IOperand* result = OperandFactory::MathOperands(val2, val1, mathType);
 	Pop();
 	Pop();
 	_operandStack.push_back(result);
