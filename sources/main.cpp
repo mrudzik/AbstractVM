@@ -7,14 +7,12 @@ void LaunchProgramAutomated(char* path)
     ParserSystem parser;
     // Decrypt file into vector of commands
 	parser.ParseInputFile(std::string(path));
-    // Apply commands to Core
-    
-    // return
 }
 
 void LaunchProgramManual()
 {
 	ParserSystem parser;
+    parser.ParseInputManual();
     // Inf Loop
     //  // Scan user input
     //  // Parse input

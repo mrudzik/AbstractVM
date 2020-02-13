@@ -80,29 +80,30 @@ void 	LexerModule::SetupNewLines(std::vector<std::string> lines)
 		_lexedLines.push_back(tempStruct);
 	}
 
-	ClearEmptyLines();
+	ClearLines();
 	ShowScannedData();
 }
 
-void 	LexerModule::ClearEmptyLines()
+void 	LexerModule::ClearLines()
 {
 	std::vector<s_LexerLine> clearedResult;
 
-	size_t i = 0;
-	while (i < _lexedLines.size())
+	for (size_t i = 0; i < _lexedLines.size(); i++)
 	{
 		if (!_lexedLines[i].tokens.empty())
-		{// If not empty push to result
+		{// Empty tokens check
+			std::string str = _lexedLines[i].tokens.at(0);
+			if (str.size() >= 1)
+			{// Comment check
+				if (str[0] == ';')
+					continue;
+			}
 			clearedResult.push_back(_lexedLines[i]);
 		}
-		i++;
 	}
 	_lexedLines.clear();
 	_lexedLines = clearedResult;
 }
-
-
-
 
 
 

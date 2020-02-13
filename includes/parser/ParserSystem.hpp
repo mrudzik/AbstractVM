@@ -23,6 +23,7 @@ private:
 
 	void ClearResults();
 	void ParseLinesToCommands();
+    void ParsingProcedure();
 public:
     ParserSystem(/* args */);
     ~ParserSystem();
@@ -32,6 +33,7 @@ public:
     // Used when typing program in manual mode
     void ParseInputLine(std::string line);
 
+    void ParseInputManual();
 
 };
 

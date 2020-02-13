@@ -99,14 +99,8 @@ void 	ParserSystem::ParseLinesToCommands()
 
 
 
-void 	ParserSystem::ParseInputFile(std::string path)
-{	// TODO Return Vector of ICommands
-
-	std::cout << path << std::endl;
-	// Extract string contents from file
-	// Lexer Content on Lines Split
-	// Lexer Lines on Tokens Split
-	lexerMod->SetupNewLines(ReadFileLines(path));
+void 	ParserSystem::ParsingProcedure()
+{
 	try
 	{
 		ParseLinesToCommands();
@@ -117,7 +111,6 @@ void 	ParserSystem::ParseInputFile(std::string path)
 		<< "Closing Program" << '\n';
 		return;
 	}
-
 	// Return Result
 	size_t i = 0;
 	while (i < _resultCommands.size())
@@ -126,10 +119,43 @@ void 	ParserSystem::ParseInputFile(std::string path)
 		_resultCommands.at(i)->ShowCommand();
 		i++;
 	}
-
 	std::cout << "\n\n--------\nTesting Core" << std::endl;
 	Core testCore(_resultCommands);
-
 	std::cout << "\nEnd of Parser System" << std::endl;
+}
+
+
+
+
+
+void 	ParserSystem::ParseInputFile(std::string path)
+{	// TODO Return Vector of ICommands
+
+	std::cout << path << std::endl;
+	// Extract string contents from file
+	// Lexer Content on Lines Split
+	// Lexer Lines on Tokens Split
+	lexerMod->SetupNewLines(ReadFileLines(path));
+	ParsingProcedure();
+	
+}
+
+void	ParserSystem::ParseInputManual()
+{
+	std::vector<std::string> scannedText;
+
+	bool loop = true;
+	while (loop)
+	{// Inf Loop
+		std::string str;
+		std::getline(std::cin, str);
+
+		if (str.compare(";;") == 0)
+			break; //Checking exit command for manual parsing
+	
+		scannedText.push_back(str);
+	}
+	lexerMod->SetupNewLines(scannedText);
+	ParsingProcedure();
 }
 

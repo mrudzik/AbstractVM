@@ -23,7 +23,8 @@ public:
     ~LexerModule();
 
 	void SetupNewLines(std::vector<std::string> lines);
-	void ClearEmptyLines();
+	void ClearLines();
+
 	void ShowScannedData();
 	
 	std::vector<std::string> SeparateWords(std::string line);
