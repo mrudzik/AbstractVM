@@ -14,49 +14,39 @@ Core::Core(std::vector<Command*> commandList)
 			switch (curInstr)
 			{
 			case e_InstructionType::Push:
-				std::cout << "Push" << std::endl;
 				Push(commandList.at(i)->GetOperand());
 				break;
 			case e_InstructionType::Pop:
-				std::cout << "Pop" << std::endl;
 				Pop();
 				break;
 			case e_InstructionType::Dump:
-				std::cout << "Dump" << std::endl;
 				Dump();
 				break;
 			case e_InstructionType::Assert:
-				std::cout << "Assert" << std::endl;
 				Assert(commandList.at(i)->GetOperand());
 				break;
 			case e_InstructionType::Add:
-				std::cout << "Add" << std::endl;
 				Math(e_MathType::math_Add);
 				break;
 			case e_InstructionType::Sub:
-				std::cout << "Sub" << std::endl;
 				Math(e_MathType::math_Sub);
 				break;
 			case e_InstructionType::Mul:
-				std::cout << "Mul" << std::endl;
 				Math(e_MathType::math_Mul);
 				break;
 			case e_InstructionType::Div:
-				std::cout << "Div" << std::endl;
 				Math(e_MathType::math_Div);
 				break;
 			case e_InstructionType::Mod:
-				std::cout << "Mod" << std::endl;
 				Math(e_MathType::math_Mod);
 				break;
 			case e_InstructionType::Print:
-				std::cout << "Print" << std::endl;
+				Print();
 				break;
 			case e_InstructionType::Exit:
-				std::cout << "Exit" << std::endl;
 				return;
 			default:
-				break;
+				throw UnknownInstructionException();
 			}
 		}
 		catch(const std::exception& e)
@@ -150,5 +140,17 @@ void Core::Math(e_MathType mathType)
 	_operandStack.push_back(result);
 }
 
+void Core::Print()
+{
+	size_t size = _operandStack.size();
+	if (size <= 0)
+		throw InstructionPopEmptyException();
+	IOperand* val = _operandStack.at(size - 1);
+	
+	if (val->getType() != e_OperandType::Int8)
+		throw FalseAssertException();
+	OperandTemplate<int8_t>* cast = dynamic_cast<OperandTemplate<int8_t>*>(val);
+	std::cout << cast->getValue() << "\n";
+}
 
 

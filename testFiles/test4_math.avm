@@ -36,5 +36,11 @@ push float(99999988898889888988893999999888.40282038);hello
 dump ;hello
 mul
 dump ;hello
+print ; must be error here
+
+push int8(55)
+print ; must be ok
+push int8(122)
+print ; must be ok here too
 
 exit
