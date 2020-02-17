@@ -16,9 +16,7 @@ private:
     LexerModule*	lexerMod;
     ParserModule*	parserMod;
 
-
-	std::vector<Command*> _resultCommands;
-
+	std::vector<Command*> 		_resultCommands;
 	std::vector<std::string> 	ReadFileLines(std::string path);
 
 	void ClearResults();

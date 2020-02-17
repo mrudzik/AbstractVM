@@ -11,7 +11,6 @@ private:
 	/* data */
 	std::vector<IOperand*> _operandStack;
 
-
 	/* incapsulated functions */
 	void Push(IOperand* operand);
 	void Pop();

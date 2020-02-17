@@ -4,7 +4,6 @@
 
 #include <string>
 
-
 enum e_OperandType
 {
 	Int8,
@@ -22,16 +21,11 @@ public:
 	virtual int getPrecision(void) const = 0;
 	// Type of the instance
 	virtual e_OperandType getType(void) const = 0;
-
-	// Sum
+	// Math
 	virtual IOperand const * operator+(IOperand const &rhs) const = 0;
-	// Difference
 	virtual IOperand const * operator-(IOperand const &rhs) const = 0;
-	// Product
 	virtual IOperand const * operator*(IOperand const &rhs) const = 0;
-	// Quotient
 	virtual IOperand const * operator/(IOperand const &rhs) const = 0;
-	// Modulo
 	virtual IOperand const * operator%(IOperand const &rhs) const = 0;
 
 	// // String representation of the instance

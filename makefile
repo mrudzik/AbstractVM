@@ -12,6 +12,7 @@ SRC = 	main.cpp	\
 		CommandFactory.cpp		\
 		operands/OperandFactory.cpp 	\
 		operands/OperandTemplate.cpp	\
+		operands/AbstractOperand.cpp 	\
 		utility/EnumStringTranslator.cpp	\
 		core/Core.cpp	
 
