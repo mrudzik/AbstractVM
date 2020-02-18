@@ -28,9 +28,15 @@ public:
 	Command(IOperand* newValue, e_InstructionType instruction);
 	~Command();
 
+	Command(const Command &rhs) = default;
+	Command & operator= (const Command &rhs);
+
 	void ShowCommand();
 	e_InstructionType	GetInstruction();
 	IOperand* GetOperand();
+
+
+		
 };
 
 #endif

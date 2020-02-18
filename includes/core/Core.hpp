@@ -18,9 +18,14 @@ private:
 	void Assert(IOperand* operand);
 	void Math(e_MathType mathType);
 	void Print();
+
+	void ClearStack();
 public:
 	Core(std::vector<Command*> commandList);
 	~Core();
+
+	Core(const Core &rhs) = default;
+	Core & operator= (const Core &rhs);
 };
 
 

@@ -12,7 +12,9 @@ private:
 
 public:
 	OperandTemplate(T value, e_OperandType type);
-	~OperandTemplate() {}
+	~OperandTemplate() = default;
+	OperandTemplate(const OperandTemplate &rhs) = default;
+	OperandTemplate & operator= (const OperandTemplate &rhs) = default;
 
 	T getValue() const;
 	virtual std::string const toString(void) const;

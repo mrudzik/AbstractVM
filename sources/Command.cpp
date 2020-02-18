@@ -34,3 +34,11 @@ IOperand* 	Command::GetOperand()
 {
 	return _value;
 }
+
+
+Command &Command::operator= (const Command &input)
+{
+	_instrType = input._instrType;
+	_value = input._value;
+	return *this;
+}

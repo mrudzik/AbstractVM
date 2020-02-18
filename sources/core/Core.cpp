@@ -55,16 +55,25 @@ Core::Core(std::vector<Command*> commandList)
 			commandList.at(i)->ShowCommand();
 			std::cout << "\n\t" << e.what() << std::endl;
 		}
-		
-		
 	}
 
 }
 
 Core::~Core()
 {
+	ClearStack();
+}
 
-	for (size_t i = 0; i < _operandStack.size(); i++)
+Core &Core::operator= (const Core &rhs)
+{
+	ClearStack();
+	_operandStack = rhs._operandStack;
+	return *this;
+}
+
+void Core::ClearStack()
+{
+	for (size_t i = 0; i < _operandStack.size(); i++)	
 	{
 		IOperand* tempObj = _operandStack.at(i);
 
@@ -74,10 +83,6 @@ Core::~Core()
 	}
 	_operandStack.clear();
 }
-
-
-
-
 
 
 void Core::Push(IOperand* operand)
