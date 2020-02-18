@@ -9,15 +9,10 @@
 #include "Core.hpp"
 
 ParserSystem::ParserSystem(/* args */)
-{
-	// lexerMod = new LexerModule();
-}
+{}
 
 ParserSystem::~ParserSystem()
-{
-	// delete lexerMod;
-	// ClearResults();
-}
+{}
 
 
 void ParserSystem::ClearCommands(std::vector<Command*> &commVec)
@@ -53,7 +48,7 @@ std::vector<std::string> 	ParserSystem::ReadFileLines(std::string path)
 	else
 	{
 		std::cout << "File cannot be Opened" << std::endl;
-		throw; // TODO Add custom Exception 
+		throw CustomException("Cannot Open File"); 
 	}
 	return result;
 }
@@ -137,9 +132,15 @@ void 	ParserSystem::ParseInputFile(std::string path)
 	// Extract string contents from file
 	// Lexer Content on Lines Split
 	// Lexer Lines on Tokens Split
-	std::vector<s_LexerLine> parsedData = LexerModule::SetupNewLines(ReadFileLines(path));
-	ParsingProcedure(parsedData);
-	
+	try
+	{
+		std::vector<s_LexerLine> parsedData = LexerModule::SetupNewLines(ReadFileLines(path));
+		ParsingProcedure(parsedData);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }
 
 void	ParserSystem::ParseInputManual()
@@ -157,7 +158,16 @@ void	ParserSystem::ParseInputManual()
 	
 		scannedText.push_back(str);
 	}
-	std::vector<s_LexerLine> parsedData = LexerModule::SetupNewLines(scannedText);
-	ParsingProcedure(parsedData);
+	try
+	{
+		std::vector<s_LexerLine> parsedData = LexerModule::SetupNewLines(scannedText);
+		ParsingProcedure(parsedData);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
+	
 }
 
