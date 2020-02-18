@@ -12,12 +12,9 @@ private:
 
 public:
 	OperandTemplate(T value, e_OperandType type);
-	~OperandTemplate();
-
-	
+	~OperandTemplate() {}
 
 	T getValue() const;
-	
 	virtual std::string const toString(void) const;
 
 	virtual int8_t asI8() const;
@@ -26,6 +23,5 @@ public:
 	virtual float asFloat() const;
 	virtual double asDouble() const;
 };
-
 
 #endif

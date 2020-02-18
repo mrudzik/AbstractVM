@@ -9,20 +9,20 @@ LexerModule::~LexerModule()
 {
 }
 
-void 	LexerModule::ShowScannedData()
+void 	LexerModule::ShowScannedData(const std::vector<s_LexerLine> &lines)
 {
 	std::cout << "\x1b[32m" << "Lexer Scanned Data\n" << "\x1b[0m" << std::endl;
-	for (int i = 0; i < (int)_lexedLines.size(); i++)
+	for (int i = 0; i < (int)lines.size(); i++)
 	{
 		// Line
-		std::cout << " Line " << i + 1 << ":\t" << "|\x1b[36m" << _lexedLines.at(i).line << "\x1b[0m|" << "\n";
+		std::cout << " Line " << i + 1 << ":\t" << "|\x1b[36m" << lines.at(i).line << "\x1b[0m|" << "\n";
 		// Tokens:
 		std::cout << " Tokens:\t";
-		if (_lexedLines.at(i).tokens.empty())
+		if (lines.at(i).tokens.empty())
 			std::cout << " Empty";
-		for (int iTok = 0; iTok < (int)_lexedLines.at(i).tokens.size(); iTok++)
+		for (int iTok = 0; iTok < (int)lines.at(i).tokens.size(); iTok++)
 		{
-			std::cout << "|\x1b[31m" << _lexedLines.at(i).tokens.at(iTok) << "\x1b[0m|"; 
+			std::cout << "|\x1b[31m" << lines.at(i).tokens.at(iTok) << "\x1b[0m|"; 
 		}
 		std::cout << std::endl;
 	}
@@ -68,52 +68,43 @@ std::vector<std::string> LexerModule::SeparateWords(std::string line)
 	return result;
 }
 
-void 	LexerModule::SetupNewLines(std::vector<std::string> lines)
+std::vector<s_LexerLine>	LexerModule::SetupNewLines(const std::vector<std::string> &parsedLines)
+												// std::vector<s_LexerLine> &newLines)
 {
-	_lexedLines.clear();
-	for (int i = 0; i < (int)lines.size(); i++)
+	std::vector<s_LexerLine> newLines;
+	for (int i = 0; i < (int)parsedLines.size(); i++)
 	{
 		s_LexerLine tempStruct;
 
-		tempStruct.line = lines.at(i);
+		tempStruct.line = parsedLines.at(i);
+		// std::cout << parsedLines.at(i);
 		tempStruct.tokens = SeparateWords(tempStruct.line);
-		_lexedLines.push_back(tempStruct);
+		newLines.push_back(tempStruct);
 	}
 
-	ClearLines();
-	ShowScannedData();
+	// ShowScannedData(newLines);
+	ClearLines(newLines);
+	// ShowScannedData(newLines);
+	return newLines;
 }
 
-void 	LexerModule::ClearLines()
+void 	LexerModule::ClearLines(std::vector<s_LexerLine> &lines)
 {
 	std::vector<s_LexerLine> clearedResult;
 
-	for (size_t i = 0; i < _lexedLines.size(); i++)
+	for (size_t i = 0; i < lines.size(); i++)
 	{
-		if (!_lexedLines[i].tokens.empty())
+		if (!lines[i].tokens.empty())
 		{// Empty tokens check
-			std::string str = _lexedLines[i].tokens.at(0);
+			std::string str = lines[i].tokens.at(0);
 			if (str.size() >= 1)
 			{// Comment check
 				if (str[0] == ';')
 					continue;
 			}
-			clearedResult.push_back(_lexedLines[i]);
+			clearedResult.push_back(lines[i]);
 		}
 	}
-	_lexedLines.clear();
-	_lexedLines = clearedResult;
-}
-
-
-
-
-size_t 	LexerModule::GetLexedSize()
-{
-	return _lexedLines.size();
-}
-
-s_LexerLine LexerModule::GetLexedLine(int lineNum)
-{
-	return _lexedLines.at(lineNum);
+	lines.clear();
+	lines = clearedResult;
 }

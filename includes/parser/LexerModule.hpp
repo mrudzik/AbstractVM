@@ -15,23 +15,15 @@ struct s_LexerLine
 
 class LexerModule
 {
-private:
-    std::vector<s_LexerLine>	_lexedLines;
-
 public:
     LexerModule(/* args */);
     ~LexerModule();
 
-	void SetupNewLines(std::vector<std::string> lines);
-	void ClearLines();
-
-	void ShowScannedData();
-	
-	std::vector<std::string> SeparateWords(std::string line);
-
-	size_t GetLexedSize();
-	s_LexerLine GetLexedLine(int lineNum);
-
+	static std::vector<s_LexerLine> SetupNewLines(	const std::vector<std::string> &parsedLines);
+								// std::vector<s_LexerLine> &newLines);
+	static void ClearLines(std::vector<s_LexerLine> &lines);
+	static void ShowScannedData(const std::vector<s_LexerLine> &lines);
+	static std::vector<std::string> SeparateWords(std::string line);
 
 };
 

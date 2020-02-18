@@ -20,7 +20,6 @@ Core::Core(std::vector<Command*> commandList)
 				Pop();
 				break;
 			case e_InstructionType::Dump:
-			std::cout << "Dump\n";
 				Dump();
 				break;
 			case e_InstructionType::Assert:
@@ -52,9 +51,9 @@ Core::Core(std::vector<Command*> commandList)
 		}
 		catch(const std::exception& e)
 		{
-			std::cout << "Failed to execute command " <<  i + 1 << ": "<< e.what() << "\n -> ";
+			std::cout << "Failed to execute command " <<  i + 1 << ": ";
 			commandList.at(i)->ShowCommand();
-			std::cout << std::endl;
+			std::cout << "\n\t" << e.what() << std::endl;
 		}
 		
 		
@@ -105,10 +104,12 @@ void Core::Pop()
 
 void Core::Dump()
 {
+	// std::cout << "-Dump-\n";
 	for (size_t i = 0; i < _operandStack.size(); i++)
 	{
 		std::cout << _operandStack.at(i)->toString() << "\n";
 	}
+	// std::cout << "------\n";
 }
 
 void Core::Assert(IOperand* operand)
@@ -131,7 +132,6 @@ void Core::Assert(IOperand* operand)
 
 void Core::Math(e_MathType mathType)
 {
-	std::cout << "Math\n";
 	size_t size = _operandStack.size();
 	if (size <= 1)
 		throw MathEmptyStackException();

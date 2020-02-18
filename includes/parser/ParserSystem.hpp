@@ -13,25 +13,23 @@
 class ParserSystem
 {
 private:
-    LexerModule*	lexerMod;
-    ParserModule*	parserMod;
+	static std::vector<std::string> ReadFileLines(std::string path);
+	static std::vector<Command*> ParseLinesToCommands(std::vector<s_LexerLine> &parsedData);
+    static void ParsingProcedure(std::vector<s_LexerLine> &parsedData);
+    static void ClearCommands(std::vector<Command*> &commVec);
 
-	std::vector<Command*> 		_resultCommands;
-	std::vector<std::string> 	ReadFileLines(std::string path);
-
-	void ClearResults();
-	void ParseLinesToCommands();
-    void ParsingProcedure();
 public:
-    ParserSystem(/* args */);
+    ParserSystem();
     ~ParserSystem();
 
     // Used when reading program from a file
-    void ParseInputFile(std::string path);
+    static void ParseInputFile(std::string path);
     // Used when typing program in manual mode
-    void ParseInputLine(std::string line);
+    static void ParseInputManual();
 
-    void ParseInputManual();
+    static void ParseInputLine(std::string line);
+
+   
 
 };
 

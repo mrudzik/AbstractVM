@@ -8,13 +8,11 @@
 
 class ParserModule
 {
-private:
-    /* data */
 public:
     ParserModule(/* args */);
     ~ParserModule();
 
-	Command* ParseLine(s_LexerLine toParse);
+	static Command* ParseLine(s_LexerLine toParse);
 
 	static void 	LexicCheckInt(std::string param);
 	static void 	LexicCheckFloat(std::string param);

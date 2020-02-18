@@ -10,28 +10,27 @@
 
 ParserSystem::ParserSystem(/* args */)
 {
-	lexerMod = new LexerModule();
-	parserMod = new ParserModule();
+	// lexerMod = new LexerModule();
 }
 
 ParserSystem::~ParserSystem()
 {
-	delete lexerMod;
-	delete parserMod;
-	ClearResults();
+	// delete lexerMod;
+	// ClearResults();
 }
 
 
-void ParserSystem::ClearResults()
+void ParserSystem::ClearCommands(std::vector<Command*> &commVec)
 {
-	int i = static_cast<int>(_resultCommands.size()) - 1;
-	while (i > -1)
+	if (commVec.empty())
+		return;
+
+	for (int i = static_cast<int>(commVec.size()) - 1; i > -1; i--)
 	{// Releasing memory behind pointers
-		delete _resultCommands.at(i);
-		i--;
+		delete commVec.at(i);
 	}
 	// Releasing now pointers
-	_resultCommands.clear();
+	commVec.clear();
 }
 
 
@@ -59,29 +58,29 @@ std::vector<std::string> 	ParserSystem::ReadFileLines(std::string path)
 	return result;
 }
 
-void 	ParserSystem::ParseLinesToCommands()
+std::vector<Command*>  	ParserSystem::ParseLinesToCommands(std::vector<s_LexerLine> &parsedData)
 {
+	std::vector<Command*> resultCommands;
 	// Loop
-	size_t size = lexerMod->GetLexedSize();
+	size_t size = parsedData.size();
 	size_t i = 0;
 	size_t foundErrors = 0;
 	bool foundExit = false;
-
 	while (i < size)
 	{
 		try
 		{// Line Tokens to Parser
-			Command *tempCommand = parserMod->ParseLine(lexerMod->GetLexedLine(i));
+			Command *tempCommand = ParserModule::ParseLine(parsedData.at(i));
 			// Recieve Command to result
 			// If there is no exceptions than instance will be added to result
-			_resultCommands.push_back(tempCommand);
+			resultCommands.push_back(tempCommand);
 			if (tempCommand->GetInstruction() == e_InstructionType::Exit)
 				foundExit = true;
 		}
 		catch (const std::exception& err)
 		{
 			std::cout << "Line " << i + 1 << ": "
-				<< "\033[21;36m" << lexerMod->GetLexedLine(i).line << "\033[0m\n"
+				<< "\033[21;36m" << parsedData.at(i).line << "\033[0m\n"
 				<< err.what() << std::endl;
 			foundErrors++;
 		}
@@ -89,39 +88,42 @@ void 	ParserSystem::ParseLinesToCommands()
 	}
 	
 	if (!foundExit)
+	{
+		ClearCommands(resultCommands);
 		throw NoExitException();
-
+	}
 	if (foundErrors != 0)
-	{// Throw Custom exception that found alot of Errors
+	{
+		ClearCommands(resultCommands);
 		throw FoundErrorsException();
 	}
+	return resultCommands;
 }
 
 
 
-void 	ParserSystem::ParsingProcedure()
+void 	ParserSystem::ParsingProcedure(std::vector<s_LexerLine> &parsedData)
 {
+	std::vector<Command*> resultCommands;
 	try
 	{
-		ParseLinesToCommands();
+		resultCommands = ParseLinesToCommands(parsedData);
+
+		for (size_t i = 0; i < resultCommands.size(); i++)
+		{
+			std::cout << "\n" << (i + 1) << "|\t";
+			resultCommands.at(i)->ShowCommand();
+		}
+		std::cout << "\n\nApplying Commands to Core\n" << std::endl;
+		Core realCore(resultCommands);
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n'
-		<< "Closing Program" << '\n';
-		return;
+		std::cerr << e.what() << '\n';
 	}
-	// Return Result
-	size_t i = 0;
-	while (i < _resultCommands.size())
-	{
-		std::cout << "\n";
-		_resultCommands.at(i)->ShowCommand();
-		i++;
-	}
-	std::cout << "\n\n--------\nTesting Core" << std::endl;
-	Core testCore(_resultCommands);
-	std::cout << "\nEnd of Parser System" << std::endl;
+
+	std::cout << "Closing Program" << '\n';
+	ClearCommands(resultCommands);
 }
 
 
@@ -135,8 +137,8 @@ void 	ParserSystem::ParseInputFile(std::string path)
 	// Extract string contents from file
 	// Lexer Content on Lines Split
 	// Lexer Lines on Tokens Split
-	lexerMod->SetupNewLines(ReadFileLines(path));
-	ParsingProcedure();
+	std::vector<s_LexerLine> parsedData = LexerModule::SetupNewLines(ReadFileLines(path));
+	ParsingProcedure(parsedData);
 	
 }
 
@@ -155,7 +157,7 @@ void	ParserSystem::ParseInputManual()
 	
 		scannedText.push_back(str);
 	}
-	lexerMod->SetupNewLines(scannedText);
-	ParsingProcedure();
+	std::vector<s_LexerLine> parsedData = LexerModule::SetupNewLines(scannedText);
+	ParsingProcedure(parsedData);
 }
 

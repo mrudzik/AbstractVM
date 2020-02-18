@@ -1,6 +1,6 @@
 
 #include "OperandFactory.hpp"
-#include "AbstactOperand.hpp"
+#include "AbstractOperand.hpp"
 
 AbstractOperand::AbstractOperand(e_OperandType type)
 	: _type (type)

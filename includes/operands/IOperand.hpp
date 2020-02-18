@@ -17,10 +17,10 @@ class IOperand
 {
 
 public:
-	// Precision of the type of the instance
+
 	virtual int getPrecision(void) const = 0;
-	// Type of the instance
 	virtual e_OperandType getType(void) const = 0;
+	
 	// Math
 	virtual IOperand const * operator+(IOperand const &rhs) const = 0;
 	virtual IOperand const * operator-(IOperand const &rhs) const = 0;

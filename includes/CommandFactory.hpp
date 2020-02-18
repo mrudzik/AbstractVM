@@ -5,8 +5,7 @@
 
 class CommandFactory
 {
-private:
-	/* data */
+
 public:
 	CommandFactory(/* args */);
 	~CommandFactory();

@@ -3,7 +3,7 @@
 
 
 template<typename T>
-OperandTemplate::OperandTemplate(T value, e_OperandType type)
+OperandTemplate<T>::OperandTemplate(T value, e_OperandType type)
 		: AbstractOperand(type),
 			_value(value)
 {
@@ -15,19 +15,16 @@ OperandTemplate::OperandTemplate(T value, e_OperandType type)
 			throw CustomException("Value is Inf");
 	}
 }
-template <>
-OperandTemplate::~OperandTemplate()
-{ }
 
-	
+
 template<typename T>
-T OperandTemplate::getValue() const
+T OperandTemplate<T>::getValue() const
 {
 	return _value;
 }
-	
-template <typename T>
-std::string const OperandTemplate::toString(void) const
+
+template<typename T>
+std::string const OperandTemplate<T>::toString(void) const
 {
 	std::stringstream ss;
 	if (_type == e_OperandType::Int8)
@@ -36,32 +33,42 @@ std::string const OperandTemplate::toString(void) const
 		ss << _value;
 	return ss.str();
 }
-template <typename T>
-int8_t OperandTemplate::asI8() const
+
+template<typename T>
+int8_t OperandTemplate<T>::asI8() const
 {
 	return static_cast<int8_t>(_value);
 }
-template <typename T>
-int16_t OperandTemplate::asI16() const
+
+template<typename T>
+int16_t OperandTemplate<T>::asI16() const
 {
 	return static_cast<int16_t>(_value);
 }
-template <typename T>
-int32_t OperandTemplate::asI32() const
+
+template<typename T>
+int32_t OperandTemplate<T>::asI32() const
 {
 	return static_cast<int32_t>(_value);
 }
-template <typename T>
-float OperandTemplate::asFloat() const
+
+template<typename T>
+float OperandTemplate<T>::asFloat() const
 {
 	return static_cast<float>(_value);
 }
-template <typename T>
-double OperandTemplate::asDouble() const 
+
+template<typename T>
+double OperandTemplate<T>::asDouble() const 
 {
 	return static_cast<double>(_value);
 }
 
+template class OperandTemplate<int8_t>;
+template class OperandTemplate<int16_t>;
+template class OperandTemplate<int32_t>;
+template class OperandTemplate<float>;
+template class OperandTemplate<double>;
 
 
 
